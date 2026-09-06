@@ -38,6 +38,12 @@ body {
   scroll-behavior: smooth;
 }
 
+@media (pointer: fine) {
+  [data-cursor] {
+    cursor: none;
+  }
+}
+
 .circuit-grid {
   background-image:
     linear-gradient(rgba(21, 91, 88, 0.35) 1px, transparent 1px),

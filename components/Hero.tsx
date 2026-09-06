@@ -6,13 +6,59 @@ import Link from "next/link";
 import { Button } from "./ui/Button";
 import { CircuitPattern } from "./CircuitNode";
 
-const codeLines = [
-  { indent: 0, text: "export function GridzyApp() {" },
-  { indent: 1, text: "const [status] = useDeploy();" },
-  { indent: 1, text: "return (" },
-  { indent: 2, text: "<Experience live={status} />" },
-  { indent: 1, text: ");" },
-  { indent: 0, text: "}" },
+const TOKEN_COLORS = {
+  keyword: "#C77DFF",
+  fn: "#38BDF8",
+  string: "#F5A623",
+  plain: "rgba(234,244,243,0.9)",
+} as const;
+
+const codeLines: { indent: number; tokens: { text: string; type: keyof typeof TOKEN_COLORS }[] }[] = [
+  {
+    indent: 0,
+    tokens: [
+      { text: "export default async function ", type: "keyword" },
+      { text: "GridzyCore", type: "fn" },
+      { text: "() {", type: "plain" },
+    ],
+  },
+  {
+    indent: 1,
+    tokens: [
+      { text: "const ", type: "keyword" },
+      { text: "engine = ", type: "plain" },
+      { text: "await ", type: "keyword" },
+      { text: "initAI", type: "fn" },
+      { text: "({", type: "plain" },
+    ],
+  },
+  {
+    indent: 2,
+    tokens: [
+      { text: "precision: ", type: "plain" },
+      { text: "'quantum'", type: "string" },
+      { text: ",", type: "plain" },
+    ],
+  },
+  {
+    indent: 2,
+    tokens: [
+      { text: "performance: ", type: "plain" },
+      { text: "'max'", type: "string" },
+    ],
+  },
+  { indent: 1, tokens: [{ text: "});", type: "plain" }] },
+  { indent: 0, tokens: [] },
+  {
+    indent: 1,
+    tokens: [
+      { text: "return ", type: "keyword" },
+      { text: "engine.", type: "plain" },
+      { text: "deploy", type: "fn" },
+      { text: "();", type: "plain" },
+    ],
+  },
+  { indent: 0, tokens: [{ text: "}", type: "plain" }] },
 ];
 
 export function Hero() {
@@ -100,7 +146,8 @@ export function Hero() {
                 gridzy-app.tsx
               </span>
               <span className="ml-auto flex items-center gap-1.5 rounded-full bg-primary-teal/30 px-2.5 py-1 text-[10px] font-semibold text-amber">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber" /> LIVE
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber shadow-[0_0_6px_2px_rgba(245,166,35,0.6)]" />
+                LIVE BUILD
               </span>
             </div>
             <div className="space-y-1.5 px-5 py-6 font-mono text-[13px] leading-relaxed">
@@ -111,10 +158,15 @@ export function Hero() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: 0.6 + i * 0.08 }}
                   style={{ paddingLeft: `${line.indent * 1.1}rem` }}
-                  className="text-[#EAF4F3]/90"
                 >
-                  <span className="text-amber/80">{"// "}</span>
-                  {line.text}
+                  {line.tokens.map((t, ti) => (
+                    <span key={ti} style={{ color: TOKEN_COLORS[t.type] }}>
+                      {t.text}
+                    </span>
+                  ))}
+                  {i === codeLines.length - 1 && (
+                    <span className="ml-0.5 inline-block h-3.5 w-[7px] translate-y-0.5 animate-pulse bg-amber" />
+                  )}
                 </motion.p>
               ))}
             </div>

@@ -48,9 +48,15 @@ export function TechMarquee() {
           Our Tech Stack
         </p>
       </div>
-      <div className="relative mt-8 overflow-hidden">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
+      <div
+        className="relative mt-8 overflow-hidden"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+        }}
+      >
         <div className="marquee-track flex w-max">
           <TechGroup />
           <TechGroup ariaHidden />
