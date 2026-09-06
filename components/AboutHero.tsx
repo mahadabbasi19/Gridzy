@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { GlobalNetworkMap } from "./GlobalNetworkMap";
 
 const stats = [
   { value: "1,200+", label: "Global experts" },
@@ -99,89 +100,9 @@ export function AboutHero() {
           </motion.div>
         </div>
 
-        {/* Right: 3D isometric monolith */}
-        <IsometricTower />
+        {/* Right: interactive global delivery network */}
+        <GlobalNetworkMap />
       </div>
     </section>
-  );
-}
-
-function IsometricTower() {
-  const gridBg = {
-    backgroundImage:
-      "linear-gradient(rgba(245,166,35,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.35) 1px, transparent 1px)",
-    backgroundSize: "18px 18px",
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 30 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
-      className="relative mx-auto hidden h-[26rem] w-full max-w-sm lg:block"
-      style={{ perspective: "1600px" }}
-    >
-      <motion.div
-        animate={{ y: [0, -16, 0] }}
-        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-        className="relative h-full w-full"
-        style={{ transformStyle: "preserve-3d" }}
-      >
-        <div
-          className="absolute left-1/2 top-1/2 h-[300px] w-[220px]"
-          style={{
-            transformStyle: "preserve-3d",
-            transform:
-              "translate(-50%, -50%) rotateX(6deg) rotateY(-28deg)",
-          }}
-        >
-          {/* front face */}
-          <div
-            className="absolute inset-0 flex items-center justify-center rounded-md border border-amber/40 bg-primary-teal/15 backdrop-blur-sm"
-            style={{
-              transform: "translateZ(70px)",
-              ...gridBg,
-              boxShadow: "inset 0 0 60px rgba(245,166,35,0.08)",
-            }}
-          >
-            <span className="text-3xl font-black tracking-widest text-white drop-shadow-[0_0_15px_rgba(245,166,35,0.65)]">
-              GRIDZY
-            </span>
-          </div>
-
-          {/* right side face */}
-          <div
-            className="absolute inset-y-0 right-0 w-[140px] border border-amber/25 bg-[#071716]/80"
-            style={{
-              ...gridBg,
-              transformOrigin: "right",
-              transform: "rotateY(90deg) translateZ(70px) translateX(0px)",
-            }}
-          >
-            <div className="flex h-full flex-col justify-evenly px-4 py-6">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber shadow-[0_0_6px_2px_rgba(245,166,35,0.5)]" />
-                  <span className="h-px flex-1 bg-primary-teal/40" />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* top face */}
-          <div
-            className="absolute inset-x-0 top-0 h-[140px] border border-amber/25 bg-primary-teal/20"
-            style={{
-              ...gridBg,
-              transformOrigin: "top",
-              transform: "rotateX(90deg) translateZ(70px)",
-            }}
-          />
-        </div>
-
-        {/* base glow ring */}
-        <div className="absolute bottom-0 left-1/2 h-6 w-56 -translate-x-1/2 rounded-full bg-amber/25 blur-2xl" />
-      </motion.div>
-    </motion.div>
   );
 }
