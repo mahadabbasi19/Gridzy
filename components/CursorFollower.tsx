@@ -48,12 +48,13 @@ export function CursorFollower() {
         animate={{
           width: active ? 84 : 20,
           height: active ? 84 : 20,
+          backgroundColor: active ? "#F5A623" : "rgba(245,166,35,0.15)",
         }}
         transition={{ type: "spring", damping: 24, stiffness: 300 }}
-        className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-amber/70 bg-amber/10 mix-blend-difference backdrop-blur-[1px]"
+        className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-amber/70 shadow-[0_4px_18px_rgba(245,166,35,0.35)]"
       >
         {active && (
-          <span className="px-1.5 text-center text-[9px] font-bold uppercase leading-tight tracking-widest text-white">
+          <span className="px-1.5 text-center text-[9px] font-bold uppercase leading-tight tracking-widest text-charcoal">
             {label}
           </span>
         )}
