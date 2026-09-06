@@ -5,61 +5,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/Button";
 import { CircuitPattern } from "./CircuitNode";
-
-const TOKEN_COLORS = {
-  keyword: "#C77DFF",
-  fn: "#38BDF8",
-  string: "#F5A623",
-  plain: "rgba(234,244,243,0.9)",
-} as const;
-
-const codeLines: { indent: number; tokens: { text: string; type: keyof typeof TOKEN_COLORS }[] }[] = [
-  {
-    indent: 0,
-    tokens: [
-      { text: "export default async function ", type: "keyword" },
-      { text: "GridzyCore", type: "fn" },
-      { text: "() {", type: "plain" },
-    ],
-  },
-  {
-    indent: 1,
-    tokens: [
-      { text: "const ", type: "keyword" },
-      { text: "engine = ", type: "plain" },
-      { text: "await ", type: "keyword" },
-      { text: "initAI", type: "fn" },
-      { text: "({", type: "plain" },
-    ],
-  },
-  {
-    indent: 2,
-    tokens: [
-      { text: "precision: ", type: "plain" },
-      { text: "'quantum'", type: "string" },
-      { text: ",", type: "plain" },
-    ],
-  },
-  {
-    indent: 2,
-    tokens: [
-      { text: "performance: ", type: "plain" },
-      { text: "'max'", type: "string" },
-    ],
-  },
-  { indent: 1, tokens: [{ text: "});", type: "plain" }] },
-  { indent: 0, tokens: [] },
-  {
-    indent: 1,
-    tokens: [
-      { text: "return ", type: "keyword" },
-      { text: "engine.", type: "plain" },
-      { text: "deploy", type: "fn" },
-      { text: "();", type: "plain" },
-    ],
-  },
-  { indent: 0, tokens: [{ text: "}", type: "plain" }] },
-];
+import { HeroVisual } from "./HeroVisual";
 
 export function Hero() {
   return (
@@ -130,53 +76,7 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 24, rotate: 2 }}
-          animate={{ opacity: 1, x: 0, rotate: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
-          className="relative mx-auto hidden w-full max-w-md lg:block"
-        >
-          <div className="absolute -inset-6 rounded-[2rem] bg-primary-teal/20 blur-2xl" />
-          <div className="relative rounded-2xl border border-primary-teal/50 bg-[#0A2E2C] shadow-2xl">
-            <div className="flex items-center gap-1.5 border-b border-primary-teal/30 px-5 py-3.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#F5A623]/80" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-              <span className="ml-3 text-[11px] font-medium text-white/40">
-                gridzy-app.tsx
-              </span>
-              <span className="ml-auto flex items-center gap-1.5 rounded-full bg-primary-teal/30 px-2.5 py-1 text-[10px] font-semibold text-amber">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber shadow-[0_0_6px_2px_rgba(245,166,35,0.6)]" />
-                LIVE BUILD
-              </span>
-            </div>
-            <div className="space-y-1.5 px-5 py-6 font-mono text-[13px] leading-relaxed">
-              {codeLines.map((line, i) => (
-                <motion.p
-                  key={i}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.6 + i * 0.08 }}
-                  style={{ paddingLeft: `${line.indent * 1.1}rem` }}
-                >
-                  {line.tokens.map((t, ti) => (
-                    <span key={ti} style={{ color: TOKEN_COLORS[t.type] }}>
-                      {t.text}
-                    </span>
-                  ))}
-                  {i === codeLines.length - 1 && (
-                    <span className="ml-0.5 inline-block h-3.5 w-[7px] translate-y-0.5 animate-pulse bg-amber" />
-                  )}
-                </motion.p>
-              ))}
-            </div>
-            <CircuitPattern className="pointer-events-none absolute -bottom-10 -right-10 h-32 w-32 opacity-70" />
-          </div>
-          <div className="absolute -bottom-6 -left-6 flex items-center gap-2 rounded-xl border border-border-teal bg-white px-4 py-3 shadow-xl">
-            <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-amber" />
-            <span className="text-xs font-bold text-charcoal">Build passing</span>
-          </div>
-        </motion.div>
+        <HeroVisual />
       </div>
     </section>
   );
