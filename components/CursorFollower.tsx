@@ -20,8 +20,8 @@ export function CursorFollower() {
     }
 
     const move = (e: MouseEvent) => {
-      x.set(e.clientX - 10);
-      y.set(e.clientY - 10);
+      x.set(e.clientX);
+      y.set(e.clientY);
 
       const target = (e.target as HTMLElement)?.closest("[data-cursor]") as HTMLElement | null;
       if (target) {
@@ -42,20 +42,22 @@ export function CursorFollower() {
   return (
     <motion.div
       style={{ x: springX, y: springY }}
-      animate={{
-        width: active ? 84 : 20,
-        height: active ? 84 : 20,
-        marginLeft: active ? -32 : 0,
-        marginTop: active ? -32 : 0,
-      }}
-      transition={{ type: "spring", damping: 24, stiffness: 300 }}
-      className="pointer-events-none fixed left-0 top-0 z-[200] hidden items-center justify-center rounded-full border border-amber/70 bg-amber/10 mix-blend-difference backdrop-blur-[1px] lg:flex"
+      className="pointer-events-none fixed left-0 top-0 z-[200] hidden lg:block"
     >
-      {active && (
-        <span className="text-[10px] font-bold uppercase tracking-widest text-white">
-          {label}
-        </span>
-      )}
+      <motion.div
+        animate={{
+          width: active ? 84 : 20,
+          height: active ? 84 : 20,
+        }}
+        transition={{ type: "spring", damping: 24, stiffness: 300 }}
+        className="flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-amber/70 bg-amber/10 mix-blend-difference backdrop-blur-[1px]"
+      >
+        {active && (
+          <span className="px-1.5 text-center text-[9px] font-bold uppercase leading-tight tracking-widest text-white">
+            {label}
+          </span>
+        )}
+      </motion.div>
     </motion.div>
   );
 }

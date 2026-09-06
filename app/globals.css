@@ -34,8 +34,15 @@ body {
   font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
-* {
-  scroll-behavior: smooth;
+/* scroll-behavior is intentionally left to auto — Lenis drives all
+   smooth scrolling in JS, and the two fighting causes visible jank */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 @media (pointer: fine) {
