@@ -36,7 +36,7 @@ export function TopBar() {
           </div>
           <span className="h-3 w-px bg-white/20" />
           <span className="text-white/60">
-            GRIDZY LTD — Registration: 14964160
+            GRIDZY LTD
           </span>
         </div>
       </div>
