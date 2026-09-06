@@ -30,23 +30,15 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border-teal bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3">
-        <Link href="/" className="flex items-center gap-2.5 shrink-0">
+        <Link href="/" className="flex shrink-0 items-center">
           <Image
-            src="/logos/icon.png"
-            alt="Gridzy G3 mark"
-            width={40}
-            height={40}
-            className="h-9 w-auto"
+            src="/logos/logo-full.png"
+            alt="Gridzy — The Tech People"
+            width={640}
+            height={250}
+            className="h-10 w-auto sm:h-11"
             priority
           />
-          <div className="leading-tight">
-            <p className="text-xl font-extrabold tracking-tight text-charcoal">
-              GRIDZY
-            </p>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-teal">
-              The Tech People
-            </p>
-          </div>
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex">

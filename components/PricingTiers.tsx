@@ -6,6 +6,7 @@ import Link from "next/link";
 import { pricingTiers, slaPackages } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/Button";
+import { TiltCard } from "./TiltCard";
 
 export function PricingTiers() {
   return (
@@ -33,10 +34,15 @@ export function PricingTiers() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
+                className={cn("h-full", tier.highlighted && "lg:-translate-y-4")}
+              >
+              <TiltCard className="h-full">
+              <div
+                data-cursor="SELECT"
                 className={cn(
-                  "relative flex flex-col rounded-2xl border p-8",
+                  "relative flex h-full flex-col rounded-2xl border p-8",
                   tier.highlighted
-                    ? "border-primary-teal bg-deep-teal text-white shadow-2xl lg:-translate-y-4"
+                    ? "border-primary-teal bg-deep-teal text-white shadow-2xl"
                     : "border-border-teal bg-white"
                 )}
               >
@@ -103,6 +109,8 @@ export function PricingTiers() {
                     Select Plan
                   </Button>
                 </Link>
+              </div>
+              </TiltCard>
               </motion.div>
             ))}
           </div>
@@ -131,21 +139,24 @@ export function PricingTiers() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="rounded-2xl border border-border-teal bg-white p-7"
               >
-                <p className="text-lg font-bold text-charcoal">{pkg.name}</p>
-                <p className="mt-1 text-2xl font-black text-primary-teal">{pkg.price}</p>
-                <p className="mt-3 text-sm leading-relaxed text-charcoal/65">
-                  {pkg.description}
-                </p>
-                <div className="mt-5 flex flex-col gap-2.5">
-                  {pkg.features.map((f) => (
-                    <div key={f} className="flex items-start gap-2.5">
-                      <Check size={16} className="mt-0.5 shrink-0 text-amber" />
-                      <span className="text-sm text-charcoal/75">{f}</span>
+                <TiltCard>
+                  <div className="rounded-2xl border border-border-teal bg-white p-7">
+                    <p className="text-lg font-bold text-charcoal">{pkg.name}</p>
+                    <p className="mt-1 text-2xl font-black text-primary-teal">{pkg.price}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-charcoal/65">
+                      {pkg.description}
+                    </p>
+                    <div className="mt-5 flex flex-col gap-2.5">
+                      {pkg.features.map((f) => (
+                        <div key={f} className="flex items-start gap-2.5">
+                          <Check size={16} className="mt-0.5 shrink-0 text-amber" />
+                          <span className="text-sm text-charcoal/75">{f}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                </TiltCard>
               </motion.div>
             ))}
           </div>

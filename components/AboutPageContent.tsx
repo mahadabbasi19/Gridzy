@@ -5,6 +5,7 @@ import { Gauge, ShieldCheck, Target, Timer } from "lucide-react";
 import Image from "next/image";
 import { CircuitPattern } from "./CircuitNode";
 import { LinkedinIcon, TwitterIcon } from "./icons/SocialIcons";
+import { TiltCard } from "./TiltCard";
 
 const timeline = [
   {
@@ -172,11 +173,13 @@ export function AboutPageContent() {
                       i % 2 === 1 ? "md:-left-1.5" : "md:-right-1.5 md:translate-x-1/2"
                     }`}
                   />
-                  <div className="rounded-2xl border border-border-teal bg-white p-6">
-                    <p className="text-xl font-extrabold text-primary-teal">{t.year}</p>
-                    <p className="mt-1 text-lg font-bold text-charcoal">{t.title}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-charcoal/65">{t.desc}</p>
-                  </div>
+                  <TiltCard>
+                    <div className="rounded-2xl border border-border-teal bg-white p-6">
+                      <p className="text-xl font-extrabold text-primary-teal">{t.year}</p>
+                      <p className="mt-1 text-lg font-bold text-charcoal">{t.title}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-charcoal/65">{t.desc}</p>
+                    </div>
+                  </TiltCard>
                 </motion.div>
               ))}
             </div>
@@ -202,13 +205,16 @@ export function AboutPageContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="rounded-2xl border border-border-teal bg-white p-7 text-center"
               >
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-soft-teal text-primary-teal">
-                  <v.icon size={22} />
-                </div>
-                <h3 className="mt-5 text-lg font-bold text-charcoal">{v.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-charcoal/65">{v.desc}</p>
+                <TiltCard>
+                  <div className="rounded-2xl border border-border-teal bg-white p-7 text-center">
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-soft-teal text-primary-teal">
+                      <v.icon size={22} />
+                    </div>
+                    <h3 className="mt-5 text-lg font-bold text-charcoal">{v.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-charcoal/65">{v.desc}</p>
+                  </div>
+                </TiltCard>
               </motion.div>
             ))}
           </div>
@@ -234,27 +240,33 @@ export function AboutPageContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.4, delay: (i % 3) * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl border border-primary-teal/40 bg-primary-teal/10 p-6 backdrop-blur-sm transition-colors hover:bg-primary-teal/20"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-amber text-lg font-extrabold text-charcoal">
-                  {l.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </div>
-                <h3 className="mt-5 text-lg font-bold text-white">{l.name}</h3>
-                <p className="text-sm font-semibold text-amber">{l.role}</p>
-                <p className="mt-3 text-sm leading-relaxed text-[#EAF4F3]/75 opacity-0 max-h-0 overflow-hidden transition-all duration-300 group-hover:opacity-100 group-hover:max-h-32">
-                  {l.bio}
-                </p>
-                <div className="mt-4 flex items-center gap-3">
-                  <a href="#" className="text-white/50 transition-colors hover:text-amber">
-                    <LinkedinIcon width={16} height={16} />
-                  </a>
-                  <a href="#" className="text-white/50 transition-colors hover:text-amber">
-                    <TwitterIcon width={16} height={16} />
-                  </a>
-                </div>
+                <TiltCard>
+                  <div
+                    data-cursor="TEAM"
+                    className="group relative overflow-hidden rounded-2xl border border-primary-teal/40 bg-primary-teal/10 p-6 backdrop-blur-sm transition-colors hover:bg-primary-teal/20"
+                  >
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-amber text-lg font-extrabold text-charcoal">
+                      {l.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </div>
+                    <h3 className="mt-5 text-lg font-bold text-white">{l.name}</h3>
+                    <p className="text-sm font-semibold text-amber">{l.role}</p>
+                    <p className="mt-3 max-h-0 overflow-hidden text-sm leading-relaxed text-[#EAF4F3]/75 opacity-0 transition-all duration-300 group-hover:max-h-32 group-hover:opacity-100">
+                      {l.bio}
+                    </p>
+                    <div className="mt-4 flex items-center gap-3">
+                      <a href="#" className="text-white/50 transition-colors hover:text-amber">
+                        <LinkedinIcon width={16} height={16} />
+                      </a>
+                      <a href="#" className="text-white/50 transition-colors hover:text-amber">
+                        <TwitterIcon width={16} height={16} />
+                      </a>
+                    </div>
+                  </div>
+                </TiltCard>
               </motion.div>
             ))}
           </div>
