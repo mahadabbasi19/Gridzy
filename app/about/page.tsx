@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/PageHero";
+import { AboutHero } from "@/components/AboutHero";
 import { AboutPageContent } from "@/components/AboutPageContent";
 
 export const metadata: Metadata = {
@@ -11,11 +11,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHero
-        eyebrow="About Gridzy"
-        title="Engineering the Future of Digital Experiences"
-        subtitle="We're a distributed team of engineers, designers, and strategists who believe great software should feel effortless — for the people who use it and the people who build it."
-      />
+      <AboutHero />
       <AboutPageContent />
     </>
   );
