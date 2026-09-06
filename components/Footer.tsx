@@ -20,20 +20,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <Link href="/" className="flex items-center gap-2.5">
+            <Link href="/" className="flex items-center">
               <Image
-                src="/logos/icon.png"
-                alt="Gridzy G3 mark"
-                width={36}
-                height={36}
-                className="h-8 w-auto"
+                src="/logos/logo-full-white.png"
+                alt="Gridzy — The Tech People"
+                width={640}
+                height={246}
+                className="h-9 w-auto"
               />
-              <div className="leading-tight">
-                <p className="text-lg font-extrabold text-white">GRIDZY</p>
-                <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-amber">
-                  The Tech People
-                </p>
-              </div>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-off-white/70">
               Tailored tech solutions and creative digital strategies that
@@ -95,15 +89,15 @@ export function Footer() {
             <ul className="mt-5 flex flex-col gap-4 text-sm text-off-white/70">
               <li className="flex items-start gap-2.5">
                 <MapPin size={16} className="mt-0.5 shrink-0 text-amber" />
-                Head Office: Suite RA01, Wood St, London, UK
+                Head Office: Karachi, Pakistan
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail size={16} className="shrink-0 text-amber" />
-                sales@gridzy.dev
+                info@gridzy.dev
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone size={16} className="shrink-0 text-amber" />
-                +44 20 3289 7799
+                +92 333 0000000
               </li>
             </ul>
           </div>
@@ -113,7 +107,7 @@ export function Footer() {
       <div className="border-t border-primary-teal">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-center text-xs text-off-white/60 sm:flex-row">
           <span>© 2026 GRIDZY LTD. All Rights Reserved.</span>
-          <span>GRIDZY LTD — Company Registration No. 14964160</span>
+          <span>GRIDZY LTD</span>
         </div>
       </div>
     </footer>

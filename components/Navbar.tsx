@@ -32,7 +32,7 @@ export function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3">
         <Link href="/" className="flex shrink-0 items-center">
           <Image
-            src="/logos/logo-full.png"
+            src="/logos/logo-full-transparent.png"
             alt="Gridzy — The Tech People"
             width={640}
             height={250}

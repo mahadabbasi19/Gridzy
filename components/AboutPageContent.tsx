@@ -10,7 +10,7 @@ import { TiltCard } from "./TiltCard";
 const timeline = [
   {
     year: "2011",
-    title: "Founded in London",
+    title: "Founded in Karachi",
     desc: "Gridzy opens its doors as a three-person web development shop.",
   },
   {

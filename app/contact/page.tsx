@@ -5,7 +5,7 @@ import { ContactPageContent } from "@/components/ContactPageContent";
 export const metadata: Metadata = {
   title: "Contact Us | Gridzy — The Tech People",
   description:
-    "Start your project with Gridzy. Reach our London office, or walk through our 4-step project inquiry form.",
+    "Start your project with Gridzy. Reach our Karachi office, or walk through our 4-step project inquiry form.",
 };
 
 export default function ContactPage() {

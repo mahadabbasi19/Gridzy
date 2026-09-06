@@ -67,7 +67,7 @@ export function ContactPageContent() {
             Let&apos;s Build Something Great
           </h2>
           <p className="mt-4 text-base leading-relaxed text-charcoal/70">
-            Reach our London head office directly, or fill out the project
+            Reach our Karachi head office directly, or fill out the project
             inquiry form and a strategist will follow up within one business
             day.
           </p>
@@ -79,9 +79,7 @@ export function ContactPageContent() {
               </div>
               <div>
                 <p className="text-sm font-bold text-charcoal">Head Office</p>
-                <p className="text-sm text-charcoal/65">
-                  Suite RA01, Wood St, London, EC2V 7AN, UK
-                </p>
+                <p className="text-sm text-charcoal/65">Karachi, Pakistan</p>
               </div>
             </div>
             <div className="flex items-start gap-3.5">
@@ -90,12 +88,17 @@ export function ContactPageContent() {
               </div>
               <div>
                 <p className="text-sm font-bold text-charcoal">Email Us</p>
-                <a
-                  href="mailto:sales@gridzy.dev"
-                  className="text-sm text-charcoal/65 hover:text-primary-teal"
-                >
-                  sales@gridzy.dev
-                </a>
+                <div className="flex flex-col gap-0.5 text-sm text-charcoal/65">
+                  <a href="mailto:sales@gridzy.dev" className="hover:text-primary-teal">
+                    sales@gridzy.dev <span className="text-charcoal/40">— New projects</span>
+                  </a>
+                  <a href="mailto:info@gridzy.dev" className="hover:text-primary-teal">
+                    info@gridzy.dev <span className="text-charcoal/40">— General inquiries</span>
+                  </a>
+                  <a href="mailto:support@gridzy.dev" className="hover:text-primary-teal">
+                    support@gridzy.dev <span className="text-charcoal/40">— Existing clients</span>
+                  </a>
+                </div>
               </div>
             </div>
             <div className="flex items-start gap-3.5">
@@ -104,7 +107,7 @@ export function ContactPageContent() {
               </div>
               <div>
                 <p className="text-sm font-bold text-charcoal">Call Us</p>
-                <p className="text-sm text-charcoal/65">+44 20 3289 7799</p>
+                <p className="text-sm text-charcoal/65">+92 333 0000000</p>
               </div>
             </div>
             <div className="flex items-start gap-3.5">
@@ -113,7 +116,7 @@ export function ContactPageContent() {
               </div>
               <div>
                 <p className="text-sm font-bold text-charcoal">Office Hours</p>
-                <p className="text-sm text-charcoal/65">Mon - Fri, 9:00 - 18:00 GMT</p>
+                <p className="text-sm text-charcoal/65">Mon - Fri, 9:00 - 18:00 PKT</p>
               </div>
             </div>
           </div>
@@ -123,7 +126,7 @@ export function ContactPageContent() {
             <CircuitPattern className="absolute inset-0 h-full w-full opacity-60" />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center">
               <MapPin className="text-amber" size={26} />
-              <p className="text-sm font-bold text-white">Wood St, London, UK</p>
+              <p className="text-sm font-bold text-white">Karachi, Pakistan</p>
               <p className="text-xs text-[#EAF4F3]/70">Interactive map preview</p>
             </div>
           </div>

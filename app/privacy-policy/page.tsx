@@ -33,7 +33,7 @@ const sections = [
   },
   {
     title: "7. Your Rights",
-    body: "Depending on your jurisdiction, you may have the right to access, correct, delete, or restrict the processing of your personal data, and to receive a copy of it in a portable format. To exercise these rights, contact us at sales@gridzy.dev.",
+    body: "Depending on your jurisdiction, you may have the right to access, correct, delete, or restrict the processing of your personal data, and to receive a copy of it in a portable format. To exercise these rights, contact us at info@gridzy.dev.",
   },
   {
     title: "8. Data Security",
@@ -45,7 +45,7 @@ const sections = [
   },
   {
     title: "10. Contact Us",
-    body: "For questions about this privacy policy or how we handle your data, reach us at sales@gridzy.dev or write to our head office at Suite RA01, Wood St, London, EC2V 7AN, UK.",
+    body: "For questions about this privacy policy or how we handle your data, reach us at info@gridzy.dev or write to our head office in Karachi, Pakistan.",
   },
 ];
 
