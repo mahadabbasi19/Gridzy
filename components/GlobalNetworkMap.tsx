@@ -55,7 +55,7 @@ export function GlobalNetworkMap() {
       initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, delay: 0.3 }}
-      className="relative mx-auto hidden h-[26rem] w-full max-w-lg lg:block"
+      className="relative mx-auto h-[18rem] w-full max-w-[24rem] sm:h-[22rem] sm:max-w-lg lg:h-[26rem]"
     >
       <motion.div
         animate={{ y: [0, -12, 0] }}
@@ -156,14 +156,14 @@ export function GlobalNetworkMap() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1 }}
-          className="absolute right-4 top-4 flex items-center gap-2 rounded-xl border border-primary-teal/40 bg-deep-teal/70 px-3.5 py-2.5 shadow-lg backdrop-blur-md"
+          className="absolute right-2 top-2 flex items-center gap-1.5 rounded-xl border border-primary-teal/40 bg-deep-teal/70 px-2.5 py-2 shadow-lg backdrop-blur-md sm:right-4 sm:top-4 sm:gap-2 sm:px-3.5 sm:py-2.5"
         >
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-1.5 w-1.5 shrink-0 sm:h-2 sm:w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400 sm:h-2 sm:w-2" />
           </span>
-          <MapPin size={13} className="text-amber" />
-          <span className="text-[11px] font-semibold text-[#EAF4F3]">
+          <MapPin size={12} className="shrink-0 text-amber" />
+          <span className="whitespace-nowrap text-[9px] font-semibold text-[#EAF4F3] sm:text-[11px]">
             Active Hubs: PK • UK • US
           </span>
         </motion.div>
@@ -173,20 +173,20 @@ export function GlobalNetworkMap() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.15 }}
-          className="absolute bottom-4 left-4 flex items-center gap-3 rounded-xl border border-primary-teal/40 bg-deep-teal/70 px-3.5 py-2.5 shadow-lg backdrop-blur-md"
+          className="absolute bottom-2 left-2 flex items-center gap-2 rounded-xl border border-primary-teal/40 bg-deep-teal/70 px-2.5 py-2 shadow-lg backdrop-blur-md sm:bottom-4 sm:left-4 sm:gap-3 sm:px-3.5 sm:py-2.5"
         >
-          <div className="flex items-center">
+          <div className="flex shrink-0 items-center">
             {[0, 1, 2].map((i) => (
               <div
                 key={i}
                 style={{ marginLeft: i === 0 ? 0 : -8 }}
-                className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-deep-teal bg-primary-teal text-[9px] font-bold text-white shadow-[0_0_8px_rgba(245,166,35,0.35)]"
+                className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-deep-teal bg-primary-teal text-[9px] font-bold text-white shadow-[0_0_8px_rgba(245,166,35,0.35)] sm:h-6 sm:w-6"
               >
-                <Users size={10} />
+                <Users size={9} />
               </div>
             ))}
           </div>
-          <span className="text-[11px] font-semibold text-[#EAF4F3]">
+          <span className="whitespace-nowrap text-[9px] font-semibold text-[#EAF4F3] sm:text-[11px]">
             1,200+ Engineers Online
           </span>
         </motion.div>

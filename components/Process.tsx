@@ -190,9 +190,9 @@ export function Process() {
         </div>
 
         {/* Right: tilted device mockup that swaps per step */}
-        <div className="relative mx-auto hidden h-[440px] w-full max-w-md lg:block">
-          <div className="absolute inset-8 rounded-[2.5rem] border border-primary-teal/30" />
-          <div className="absolute inset-16 rounded-[2.5rem] border border-primary-teal/20" />
+        <div className="relative mx-auto h-[19rem] w-full max-w-[22rem] sm:h-[26rem] sm:max-w-md lg:h-[440px]">
+          <div className="absolute inset-4 rounded-[2.5rem] border border-primary-teal/30 sm:inset-8" />
+          <div className="absolute inset-10 rounded-[2.5rem] border border-primary-teal/20 sm:inset-16" />
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -201,7 +201,7 @@ export function Process() {
               animate={{ opacity: 1, y: 0, rotate: 4, scale: 1 }}
               exit={{ opacity: 0, y: -16, rotate: -2, scale: 0.97 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="absolute right-2 top-2 w-[19rem] rounded-3xl border border-primary-teal/50 bg-[#0A2E2C] p-1.5 shadow-2xl shadow-black/40 sm:w-[21rem]"
+              className="absolute right-1 top-1 w-[82%] rounded-2xl border border-primary-teal/50 bg-[#0A2E2C] p-1.5 shadow-2xl shadow-black/40 sm:right-2 sm:top-2 sm:w-72 sm:rounded-3xl lg:w-[19rem] xl:w-[21rem]"
             >
               <div className="rounded-[1.3rem] bg-[#0A2E2C]">
                 <div className="flex items-center gap-1.5 border-b border-primary-teal/30 px-4 py-3">
@@ -247,9 +247,9 @@ export function Process() {
             </motion.div>
           </AnimatePresence>
 
-          <div className="absolute bottom-2 left-2 flex items-center gap-2 rounded-xl border border-border-teal bg-white px-4 py-3 shadow-xl">
-            <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-amber" />
-            <span className="text-xs font-bold text-charcoal">
+          <div className="absolute bottom-1 left-1 flex items-center gap-1.5 rounded-xl border border-border-teal bg-white px-2.5 py-2 shadow-xl sm:bottom-2 sm:left-2 sm:gap-2 sm:px-4 sm:py-3">
+            <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-amber sm:h-2.5 sm:w-2.5" />
+            <span className="whitespace-nowrap text-[10px] font-bold text-charcoal sm:text-xs">
               Step {active + 1} of {steps.length} in progress
             </span>
           </div>

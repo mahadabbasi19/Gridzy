@@ -36,8 +36,8 @@ export function About() {
                 className="w-3/5 drop-shadow-xl"
               />
             </div>
-            <CircuitPattern className="absolute -bottom-10 -left-10 h-40 w-40" />
-            <CircuitPattern className="absolute -right-10 -top-10 h-40 w-40 rotate-90" />
+            <CircuitPattern className="absolute -bottom-6 -left-6 h-24 w-24 sm:-bottom-10 sm:-left-10 sm:h-40 sm:w-40" />
+            <CircuitPattern className="absolute -right-6 -top-6 h-24 w-24 rotate-90 sm:-right-10 sm:-top-10 sm:h-40 sm:w-40" />
           </div>
           <div className="absolute -bottom-6 left-1/2 w-56 -translate-x-1/2 rounded-xl border border-border-teal bg-white px-5 py-4 text-center shadow-lg lg:left-auto lg:right-0 lg:translate-x-0">
             <p className="text-2xl font-extrabold text-primary-teal">15+</p>

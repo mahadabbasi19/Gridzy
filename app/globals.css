@@ -28,6 +28,16 @@
   --font-sans: var(--font-jakarta);
 }
 
+html,
+body {
+  /* decorative absolutely-positioned elements (glow blobs, circuit
+     patterns) intentionally bleed past their container on some
+     breakpoints — clip at the viewport edge instead of ever causing a
+     horizontal scrollbar on narrow phones */
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

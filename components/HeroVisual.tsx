@@ -54,7 +54,7 @@ export function HeroVisual() {
 
   return (
     <div
-      className="relative mx-auto hidden h-[30rem] w-full max-w-md lg:block"
+      className="relative mx-auto h-[22rem] w-full max-w-[22rem] sm:h-[26rem] sm:max-w-md lg:h-[30rem]"
       style={{ perspective: "1400px" }}
     >
       {/* ambient glow */}
@@ -83,7 +83,7 @@ export function HeroVisual() {
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             style={{ transform: "translateZ(0px)" }}
-            className="absolute right-0 top-10 w-[19rem] rounded-2xl border border-white/15 bg-white/[0.06] p-4 shadow-2xl backdrop-blur-xl sm:w-[21rem]"
+            className="absolute right-0 top-8 w-[78%] rounded-2xl border border-white/15 bg-white/[0.06] p-3 shadow-2xl backdrop-blur-xl sm:top-10 sm:w-[19rem] sm:p-4 lg:w-[21rem]"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
@@ -167,7 +167,7 @@ export function HeroVisual() {
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5 }}
             style={{ transform: "translateZ(60px)" }}
-            className="absolute -bottom-2 left-0 w-48 rounded-3xl border border-white/20 bg-white/10 p-3.5 shadow-2xl backdrop-blur-md sm:w-52"
+            className="absolute -bottom-2 left-0 w-[54%] rounded-2xl border border-white/20 bg-white/10 p-2.5 shadow-2xl backdrop-blur-md sm:w-48 sm:rounded-3xl sm:p-3.5 lg:w-52"
           >
             <div className="flex items-center justify-between px-0.5 text-white/70">
               <span className="text-[9px] font-semibold">9:41</span>
@@ -229,15 +229,15 @@ export function HeroVisual() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
             style={{ transform: "translateZ(90px)" }}
-            className="absolute -bottom-6 right-2 flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-4 py-2 shadow-lg backdrop-blur-lg"
+            className="absolute -bottom-4 right-1 flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-2.5 py-1.5 shadow-lg backdrop-blur-lg sm:-bottom-6 sm:right-2 sm:gap-2 sm:px-4 sm:py-2"
           >
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-1.5 w-1.5 shrink-0 sm:h-2 sm:w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400 sm:h-2 sm:w-2" />
             </span>
-            <span className="whitespace-nowrap text-[11px] font-semibold text-emerald-50">
-              AI Engine Active <span className="text-emerald-400/70">•</span>{" "}
-              99.9% Uptime
+            <span className="whitespace-nowrap text-[9px] font-semibold text-emerald-50 sm:text-[11px]">
+              AI Engine <span className="hidden sm:inline">Active</span>{" "}
+              <span className="text-emerald-400/70">•</span> 99.9% Uptime
             </span>
           </motion.div>
         </div>
