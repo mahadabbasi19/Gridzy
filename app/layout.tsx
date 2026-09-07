@@ -34,8 +34,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${jakarta.variable} antialiased bg-off-white text-charcoal`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${jakarta.variable} antialiased bg-off-white text-charcoal`}
+        suppressHydrationWarning
+      >
         <SmoothScroll />
         <TopBar />
         <Navbar />
