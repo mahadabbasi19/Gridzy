@@ -54,39 +54,42 @@ export function HeroVisual() {
 
   return (
     <div
-      className="relative mx-auto w-full max-w-[22rem] sm:h-[26rem] sm:max-w-md lg:h-[30rem]"
+      className="relative mx-auto h-72 w-full max-w-[15rem] xs:h-80 xs:max-w-[16rem] sm:h-[26rem] sm:max-w-md lg:h-[30rem]"
       style={{ perspective: "1400px" }}
     >
       {/* ambient glow */}
       <div className="absolute inset-3 rounded-[2rem] bg-primary-teal/20 blur-2xl sm:inset-8 sm:rounded-[3rem] sm:blur-3xl" />
 
       {/* floating 3D container: continuous bob + cursor-driven tilt.
-          Below sm the two cards stack in normal document flow (no
-          overlap risk in a narrow column); at sm+ they switch to the
-          absolute-positioned layered/overlapping desktop composition. */}
+          Below sm, only the mobile app mockup shows (full-size,
+          full detail, centered) — there simply isn't room for the
+          full overlapping dashboard+mockup composition in a narrow
+          phone column without them colliding. At sm and up, the full
+          desktop layered composition (dashboard + mockup + status
+          badge, absolutely positioned and overlapping) appears. */}
       <motion.div
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         animate={{ y: [0, -14, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="relative flex flex-col gap-3 sm:block sm:h-full sm:w-full"
+        className="relative flex h-full w-full items-center justify-center sm:block"
         style={{ transformStyle: "preserve-3d" }}
       >
         <div
-          className="relative flex flex-col gap-3 transition-transform duration-300 ease-out sm:block sm:h-full sm:w-full"
+          className="relative flex h-full w-full items-center justify-center transition-transform duration-300 ease-out sm:block"
           style={{
             transformStyle: "preserve-3d",
             transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
           }}
         >
-          {/* Layer 2 — web dashboard */}
+          {/* Layer 2 — mid-ground web dashboard, offset behind (desktop only) */}
           <motion.div
             initial={{ opacity: 0, x: 30, y: 10 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             style={{ transform: "translateZ(0px)" }}
-            className="relative order-1 w-full rounded-2xl border border-white/15 bg-white/[0.06] p-3.5 shadow-2xl backdrop-blur-xl sm:absolute sm:right-0 sm:top-10 sm:order-none sm:w-[19rem] sm:p-4 lg:w-[21rem]"
+            className="hidden rounded-2xl border border-white/15 bg-white/[0.06] p-4 shadow-2xl backdrop-blur-xl sm:absolute sm:right-0 sm:top-10 sm:block sm:w-[19rem] lg:w-[21rem]"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
@@ -98,13 +101,13 @@ export function HeroVisual() {
                 </span>
               </div>
               <span className="flex items-center gap-1 rounded-full bg-primary-teal/30 px-2 py-0.5 text-[9px] font-semibold text-amber">
-                <TrendingUp size={10} className="shrink-0" /> +18%
+                <TrendingUp size={10} /> +18%
               </span>
             </div>
 
             <svg
               viewBox="0 0 160 44"
-              className="mt-4 h-14 w-full overflow-visible sm:h-16"
+              className="mt-4 h-16 w-full overflow-visible"
               fill="none"
             >
               <defs>
@@ -164,13 +167,14 @@ export function HeroVisual() {
             </div>
           </motion.div>
 
-          {/* Layer 1 — mobile app mockup */}
+          {/* Layer 1 — mobile app mockup. Alone (centered, full detail)
+              below sm; becomes the overlapping foreground layer at sm+. */}
           <motion.div
-            initial={{ opacity: 0, x: -20, y: 30 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
             style={{ transform: "translateZ(60px)" }}
-            className="relative order-2 w-[70%] max-w-[13rem] self-start rounded-3xl border border-white/20 bg-white/10 p-3 shadow-2xl backdrop-blur-md sm:absolute sm:-bottom-2 sm:left-0 sm:order-none sm:w-48 sm:max-w-none sm:p-3.5 lg:w-52"
+            className="relative w-full max-w-[13rem] rounded-3xl border border-white/20 bg-white/10 p-3.5 shadow-2xl backdrop-blur-md xs:max-w-[14rem] sm:absolute sm:-bottom-2 sm:left-0 sm:w-48 sm:max-w-none lg:w-52"
           >
             <div className="flex items-center justify-between px-0.5 text-white/70">
               <span className="text-[9px] font-semibold">9:41</span>
@@ -226,21 +230,21 @@ export function HeroVisual() {
             </div>
           </motion.div>
 
-          {/* Layer 3 — floating status badge */}
+          {/* Layer 3 — floating status badge, frontmost (desktop only) */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
             style={{ transform: "translateZ(90px)" }}
-            className="relative order-3 flex w-fit items-center gap-1.5 self-end rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3 py-1.5 shadow-lg backdrop-blur-lg sm:absolute sm:-bottom-6 sm:right-2 sm:order-none sm:gap-2 sm:px-4 sm:py-2"
+            className="hidden items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-4 py-2 shadow-lg backdrop-blur-lg sm:absolute sm:-bottom-6 sm:right-2 sm:flex"
           >
-            <span className="relative flex h-2 w-2 shrink-0">
+            <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
-            <span className="whitespace-nowrap text-[10px] font-semibold text-emerald-50 sm:text-[11px]">
-              AI Engine <span className="hidden xs:inline">Active</span>{" "}
-              <span className="text-emerald-400/70">•</span> 99.9% Uptime
+            <span className="whitespace-nowrap text-[11px] font-semibold text-emerald-50">
+              AI Engine Active <span className="text-emerald-400/70">•</span>{" "}
+              99.9% Uptime
             </span>
           </motion.div>
         </div>
