@@ -5,7 +5,6 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SupportBubble } from "@/components/SupportBubble";
 import { SmoothScroll } from "@/components/SmoothScroll";
-import { CursorFollower } from "@/components/CursorFollower";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -38,7 +37,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${jakarta.variable} antialiased bg-off-white text-charcoal`}>
         <SmoothScroll />
-        <CursorFollower />
         <TopBar />
         <Navbar />
         <main>{children}</main>
