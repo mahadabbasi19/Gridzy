@@ -54,54 +54,57 @@ export function HeroVisual() {
 
   return (
     <div
-      className="relative mx-auto h-56 w-full max-w-[22rem] xs:h-64 sm:h-[26rem] sm:max-w-md lg:h-[30rem]"
+      className="relative mx-auto w-full max-w-[22rem] sm:h-[26rem] sm:max-w-md lg:h-[30rem]"
       style={{ perspective: "1400px" }}
     >
       {/* ambient glow */}
       <div className="absolute inset-3 rounded-[2rem] bg-primary-teal/20 blur-2xl sm:inset-8 sm:rounded-[3rem] sm:blur-3xl" />
 
-      {/* floating 3D container: continuous bob + cursor-driven tilt */}
+      {/* floating 3D container: continuous bob + cursor-driven tilt.
+          Below sm the two cards stack in normal document flow (no
+          overlap risk in a narrow column); at sm+ they switch to the
+          absolute-positioned layered/overlapping desktop composition. */}
       <motion.div
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         animate={{ y: [0, -14, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="relative h-full w-full"
+        className="relative flex flex-col gap-3 sm:block sm:h-full sm:w-full"
         style={{ transformStyle: "preserve-3d" }}
       >
         <div
-          className="relative h-full w-full transition-transform duration-300 ease-out"
+          className="relative flex flex-col gap-3 transition-transform duration-300 ease-out sm:block sm:h-full sm:w-full"
           style={{
             transformStyle: "preserve-3d",
             transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
           }}
         >
-          {/* Layer 2 — mid-ground web dashboard, offset behind */}
+          {/* Layer 2 — web dashboard */}
           <motion.div
             initial={{ opacity: 0, x: 30, y: 10 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             style={{ transform: "translateZ(0px)" }}
-            className="absolute right-0 top-8 w-[78%] rounded-2xl border border-white/15 bg-white/[0.06] p-3 shadow-2xl backdrop-blur-xl sm:top-10 sm:w-[19rem] sm:p-4 lg:w-[21rem]"
+            className="relative order-1 w-full rounded-2xl border border-white/15 bg-white/[0.06] p-3.5 shadow-2xl backdrop-blur-xl sm:absolute sm:right-0 sm:top-10 sm:order-none sm:w-[19rem] sm:p-4 lg:w-[21rem]"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-amber/70" />
                 <span className="h-2 w-2 rounded-full bg-white/20" />
                 <span className="h-2 w-2 rounded-full bg-white/20" />
-                <span className="ml-2 hidden text-[10px] font-medium text-white/40 xs:inline">
+                <span className="ml-2 text-[10px] font-medium text-white/40">
                   Gridzy Analytics
                 </span>
               </div>
-              <span className="flex items-center gap-1 rounded-full bg-primary-teal/30 px-1.5 py-0.5 text-[8px] font-semibold text-amber xs:px-2 xs:text-[9px]">
-                <TrendingUp size={9} className="shrink-0" /> +18%
+              <span className="flex items-center gap-1 rounded-full bg-primary-teal/30 px-2 py-0.5 text-[9px] font-semibold text-amber">
+                <TrendingUp size={10} className="shrink-0" /> +18%
               </span>
             </div>
 
             <svg
               viewBox="0 0 160 44"
-              className="mt-2.5 h-10 w-full overflow-visible xs:mt-4 xs:h-16"
+              className="mt-4 h-14 w-full overflow-visible sm:h-16"
               fill="none"
             >
               <defs>
@@ -123,22 +126,22 @@ export function HeroVisual() {
               />
             </svg>
 
-            <div className="mt-2 grid grid-cols-3 gap-1.5 border-t border-white/10 pt-2 xs:mt-3 xs:gap-2 xs:pt-3">
+            <div className="mt-3 grid grid-cols-3 gap-2 border-t border-white/10 pt-3">
               <div>
-                <p className="text-[11px] font-black text-white xs:text-sm">140ms</p>
-                <p className="text-[7px] text-white/40 xs:text-[9px]">Load</p>
+                <p className="text-sm font-black text-white">140ms</p>
+                <p className="text-[9px] text-white/40">Load</p>
               </div>
               <div>
-                <p className="text-[11px] font-black text-white xs:text-sm">98</p>
-                <p className="text-[7px] text-white/40 xs:text-[9px]">Score</p>
+                <p className="text-sm font-black text-white">98</p>
+                <p className="text-[9px] text-white/40">Score</p>
               </div>
               <div>
-                <p className="text-[11px] font-black text-white xs:text-sm">24</p>
-                <p className="text-[7px] text-white/40 xs:text-[9px]">Deploys</p>
+                <p className="text-sm font-black text-white">24</p>
+                <p className="text-[9px] text-white/40">Deploys</p>
               </div>
             </div>
 
-            <div className="mt-3 hidden flex-col gap-2 border-t border-white/10 pt-3 xs:flex">
+            <div className="mt-3 flex flex-col gap-2 border-t border-white/10 pt-3">
               {projects.map((p) => (
                 <div key={p.name} className="flex items-center gap-2">
                   <span
@@ -150,7 +153,7 @@ export function HeroVisual() {
                   <span className="flex-1 truncate text-[10px] text-white/70">
                     {p.name}
                   </span>
-                  <div className="h-1 w-12 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-1 w-12 shrink-0 overflow-hidden rounded-full bg-white/10">
                     <div
                       className="h-full rounded-full bg-primary-teal"
                       style={{ width: `${p.pct}%` }}
@@ -161,40 +164,36 @@ export function HeroVisual() {
             </div>
           </motion.div>
 
-          {/* Layer 1 — foreground mobile app mockup */}
+          {/* Layer 1 — mobile app mockup */}
           <motion.div
             initial={{ opacity: 0, x: -20, y: 30 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5 }}
             style={{ transform: "translateZ(60px)" }}
-            className="absolute -bottom-2 left-0 w-[54%] rounded-xl border border-white/20 bg-white/10 p-1.5 shadow-2xl backdrop-blur-md xs:rounded-2xl xs:p-2.5 sm:w-48 sm:rounded-3xl sm:p-3.5 lg:w-52"
+            className="relative order-2 w-[70%] max-w-[13rem] self-start rounded-3xl border border-white/20 bg-white/10 p-3 shadow-2xl backdrop-blur-md sm:absolute sm:-bottom-2 sm:left-0 sm:order-none sm:w-48 sm:max-w-none sm:p-3.5 lg:w-52"
           >
             <div className="flex items-center justify-between px-0.5 text-white/70">
-              <span className="text-[7px] font-semibold xs:text-[9px]">9:41</span>
+              <span className="text-[9px] font-semibold">9:41</span>
               <div className="flex items-center gap-1">
-                <Signal size={8} className="xs:hidden" />
-                <Wifi size={8} className="xs:hidden" />
-                <Battery size={10} className="xs:hidden" />
-                <Signal size={10} className="hidden xs:block" />
-                <Wifi size={10} className="hidden xs:block" />
-                <Battery size={12} className="hidden xs:block" />
+                <Signal size={10} />
+                <Wifi size={10} />
+                <Battery size={12} />
               </div>
             </div>
 
-            <div className="mt-1.5 flex items-center justify-between xs:mt-3">
-              <p className="text-[10px] font-extrabold text-white xs:text-sm">Gridzy</p>
-              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-white/10 xs:h-6 xs:w-6">
-                <Bell size={9} className="text-amber xs:hidden" />
-                <Bell size={12} className="hidden text-amber xs:block" />
+            <div className="mt-3 flex items-center justify-between">
+              <p className="text-sm font-extrabold text-white">Gridzy</p>
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
+                <Bell size={12} className="text-amber" />
               </div>
             </div>
 
-            <div className="mt-1.5 flex gap-1 xs:mt-3 xs:gap-1.5">
+            <div className="mt-3 flex gap-1.5">
               {categories.map((c, i) => (
                 <span
                   key={c}
                   className={cn(
-                    "rounded-full px-1.5 py-0.5 text-[7px] font-semibold xs:px-2.5 xs:py-1 xs:text-[9px]",
+                    "rounded-full px-2.5 py-1 text-[9px] font-semibold",
                     i === 0
                       ? "bg-amber text-charcoal"
                       : "border border-white/15 text-white/50"
@@ -205,7 +204,7 @@ export function HeroVisual() {
               ))}
             </div>
 
-            <div className="mt-2 hidden grid-cols-2 gap-2 xs:grid">
+            <div className="mt-3 grid grid-cols-2 gap-2">
               {appTiles.map((t) => (
                 <div
                   key={t.label}
@@ -219,7 +218,7 @@ export function HeroVisual() {
               ))}
             </div>
 
-            <div className="mt-2 hidden items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 xs:flex">
+            <div className="mt-3 flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5">
               <Activity size={13} className="text-amber" />
               <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/10">
                 <div className="h-full w-4/5 rounded-full bg-gradient-to-r from-primary-teal to-amber" />
@@ -227,27 +226,21 @@ export function HeroVisual() {
             </div>
           </motion.div>
 
-          {/* Layer 3 — floating status badge, frontmost */}
+          {/* Layer 3 — floating status badge */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
             style={{ transform: "translateZ(90px)" }}
-            className="absolute -bottom-3 right-0 flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-1.5 py-1 shadow-lg backdrop-blur-lg xs:-bottom-4 xs:right-1 xs:gap-1.5 xs:px-2.5 xs:py-1.5 sm:-bottom-6 sm:right-2 sm:gap-2 sm:px-4 sm:py-2"
+            className="relative order-3 flex w-fit items-center gap-1.5 self-end rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3 py-1.5 shadow-lg backdrop-blur-lg sm:absolute sm:-bottom-6 sm:right-2 sm:order-none sm:gap-2 sm:px-4 sm:py-2"
           >
-            <span className="relative flex h-1.5 w-1.5 shrink-0">
+            <span className="relative flex h-2 w-2 shrink-0">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
-            <span className="whitespace-nowrap text-[7px] font-semibold text-emerald-50 xs:text-[9px] sm:text-[11px]">
-              <span className="xs:hidden">AI Active</span>
-              <span className="hidden xs:inline sm:hidden">
-                AI Engine <span className="text-emerald-400/70">•</span> 99.9%
-              </span>
-              <span className="hidden sm:inline">
-                AI Engine Active <span className="text-emerald-400/70">•</span>{" "}
-                99.9% Uptime
-              </span>
+            <span className="whitespace-nowrap text-[10px] font-semibold text-emerald-50 sm:text-[11px]">
+              AI Engine <span className="hidden xs:inline">Active</span>{" "}
+              <span className="text-emerald-400/70">•</span> 99.9% Uptime
             </span>
           </motion.div>
         </div>
