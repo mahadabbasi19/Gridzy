@@ -116,18 +116,15 @@ export function Process() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-deep-teal py-24 lg:py-32"
+      className="relative overflow-hidden bg-off-white py-24 lg:py-32"
     >
-      <div className="circuit-grid absolute inset-0 opacity-[0.15]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(21,91,88,0.5),transparent)]" />
-
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:grid-cols-[1fr_1fr] lg:gap-10">
         {/* Left: copy + step list */}
         <div>
-          <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-teal bg-primary-teal/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-amber">
+          <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary-teal/30 bg-soft-teal px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-primary-teal">
             <Sparkles size={13} /> How We Work
           </span>
-          <h2 className="max-w-md text-3xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl">
+          <h2 className="max-w-md text-3xl font-black leading-[1.05] tracking-tight text-charcoal sm:text-5xl">
             From First Brief to Launch Day
           </h2>
 
@@ -141,7 +138,7 @@ export function Process() {
                   className="group relative flex gap-4 py-3.5 text-left"
                 >
                   <span className="relative flex w-4 shrink-0 justify-center">
-                    <span className="absolute top-1.5 h-full w-px bg-white/10" />
+                    <span className="absolute top-1.5 h-full w-px bg-charcoal/10" />
                     {isActive && (
                       <motion.span
                         layoutId="active-rail"
@@ -151,14 +148,14 @@ export function Process() {
                     )}
                     <span
                       className={`relative z-10 mt-1.5 h-2 w-2 rounded-full transition-colors duration-300 ${
-                        isActive ? "bg-amber" : "bg-white/25"
+                        isActive ? "bg-amber" : "bg-charcoal/20"
                       }`}
                     />
                   </span>
                   <div>
                     <p
                       className={`text-base font-bold transition-colors duration-300 sm:text-lg ${
-                        isActive ? "text-white" : "text-white/35 group-hover:text-white/60"
+                        isActive ? "text-charcoal" : "text-charcoal/35 group-hover:text-charcoal/60"
                       }`}
                     >
                       {s.title}
@@ -171,7 +168,7 @@ export function Process() {
                         its own title without ballooning the gap between
                         steps. */}
                     <p
-                      className={`mt-1 line-clamp-1 max-w-sm text-xs leading-snug text-[#EAF4F3]/60 transition-opacity duration-300 sm:text-sm ${
+                      className={`mt-1 line-clamp-1 max-w-sm text-xs leading-snug text-charcoal/60 transition-opacity duration-300 sm:text-sm ${
                         isActive ? "opacity-100" : "opacity-0"
                       }`}
                     >
@@ -192,8 +189,8 @@ export function Process() {
 
         {/* Right: tilted device mockup that swaps per step */}
         <div className="relative mx-auto h-[19rem] w-full max-w-[22rem] sm:h-[26rem] sm:max-w-md lg:h-[440px]">
-          <div className="absolute inset-4 rounded-[2.5rem] border border-primary-teal/30 sm:inset-8" />
-          <div className="absolute inset-10 rounded-[2.5rem] border border-primary-teal/20 sm:inset-16" />
+          <div className="absolute inset-4 rounded-[2.5rem] border border-border-teal sm:inset-8" />
+          <div className="absolute inset-10 rounded-[2.5rem] border border-border-teal/70 sm:inset-16" />
 
           <AnimatePresence mode="wait">
             <motion.div
