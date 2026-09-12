@@ -40,7 +40,7 @@ export function About() {
             <CircuitPattern className="absolute -right-6 -top-6 h-24 w-24 rotate-90 sm:-right-10 sm:-top-10 sm:h-40 sm:w-40" />
           </div>
           <div className="absolute -bottom-6 left-1/2 w-56 -translate-x-1/2 rounded-xl border border-border-teal bg-white px-5 py-4 text-center shadow-lg lg:left-auto lg:right-0 lg:translate-x-0">
-            <p className="text-2xl font-extrabold text-primary-teal">15+</p>
+            <p className="text-2xl font-extrabold text-primary-teal">06+</p>
             <p className="text-xs font-medium text-charcoal/60">
               Years of Collective Expertise
             </p>
@@ -60,7 +60,7 @@ export function About() {
             Where Innovation Meets Execution
           </h2>
           <p className="mt-5 text-base leading-relaxed text-charcoal/70">
-            At Gridzy - The Tech People, we empower businesses across
+            At Gridzy, we empower businesses across
             industries with cutting-edge software, custom web solutions, and
             data-driven digital strategies. Our multidisciplinary team blends
             engineering rigor with creative craft to turn ambitious ideas

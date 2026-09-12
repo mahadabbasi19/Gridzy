@@ -163,19 +163,20 @@ export function Process() {
                     >
                       {s.title}
                     </p>
-                    <AnimatePresence>
-                      {isActive && (
-                        <motion.p
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="mt-1.5 max-w-sm overflow-hidden text-sm leading-relaxed text-[#EAF4F3]/70"
-                        >
-                          {s.desc}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
+                    {/* One line, always reserved (not mounted/unmounted)
+                        so the list's total height never changes as the
+                        active step advances — only opacity toggles. Kept
+                        to a single truncated line (rather than the full
+                        2-3 line description) so it stays directly under
+                        its own title without ballooning the gap between
+                        steps. */}
+                    <p
+                      className={`mt-1 line-clamp-1 max-w-sm text-xs leading-snug text-[#EAF4F3]/60 transition-opacity duration-300 sm:text-sm ${
+                        isActive ? "opacity-100" : "opacity-0"
+                      }`}
+                    >
+                      {s.desc}
+                    </p>
                   </div>
                 </button>
               );
