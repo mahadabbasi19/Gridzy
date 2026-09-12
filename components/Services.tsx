@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { services, type Service } from "@/lib/data";
 import { Button } from "./ui/Button";
@@ -48,48 +48,6 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
   );
 }
 
-function FeaturedServiceCard({ service }: { service: Service }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.4, delay: 0.16 }}
-      className="mx-auto mt-6 max-w-3xl"
-    >
-      <TiltCard>
-        <Link
-          href={`/services/${service.slug}`}
-          data-cursor="EXPLORE"
-          className="group relative flex flex-col items-start gap-5 overflow-hidden rounded-2xl border border-primary-teal/30 bg-gradient-to-br from-deep-teal to-[#0D3F3D] p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-charcoal/10 sm:flex-row sm:items-center sm:gap-7 sm:p-8"
-        >
-          <div className="circuit-grid absolute inset-0 opacity-[0.08]" />
-          <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-amber text-charcoal transition-transform duration-300 group-hover:scale-105">
-            <service.icon size={26} />
-          </div>
-          <div className="relative flex-1">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-amber">
-              Featured Service
-            </span>
-            <h3 className="mt-1.5 text-xl font-bold text-white">{service.title}</h3>
-            {service.subtitle && (
-              <p className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-[#EAF4F3]/60">
-                {service.subtitle}
-              </p>
-            )}
-            <p className="mt-2 text-sm leading-relaxed text-[#EAF4F3]/75">
-              {service.description}
-            </p>
-          </div>
-          <span className="relative flex shrink-0 items-center gap-1.5 self-start text-sm font-semibold text-amber transition-transform duration-300 group-hover:translate-x-1 sm:self-center">
-            Learn More <ArrowUpRight size={16} />
-          </span>
-        </Link>
-      </TiltCard>
-    </motion.div>
-  );
-}
-
 export function Services({
   limit,
   showHeader = true,
@@ -100,14 +58,6 @@ export function Services({
   showCta?: boolean;
 }) {
   const list = limit ? services.slice(0, limit) : services;
-
-  // With an odd count where exactly one card would be left alone in the
-  // final row of a 3-column grid, pull it out and render it as a wide
-  // featured banner instead — keeps the layout visually balanced rather
-  // than leaving a lonely card stranded under a partial row.
-  const strandedCount = list.length % 3;
-  const gridItems = strandedCount === 1 ? list.slice(0, -1) : list;
-  const featured = strandedCount === 1 ? list[list.length - 1] : null;
 
   return (
     <section id="services" className="bg-off-white py-24">
@@ -127,12 +77,10 @@ export function Services({
         )}
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {gridItems.map((s, i) => (
+          {list.map((s, i) => (
             <ServiceCard key={s.slug} service={s} index={i} />
           ))}
         </div>
-
-        {featured && <FeaturedServiceCard service={featured} />}
 
         {showCta && (
           <div className="mt-12 text-center">
