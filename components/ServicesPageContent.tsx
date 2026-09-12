@@ -67,6 +67,11 @@ export function ServicesPageContent() {
                     {s.category}
                   </span>
                   <h3 className="mt-1.5 text-lg font-bold text-charcoal">{s.title}</h3>
+                  {s.subtitle && (
+                    <p className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-primary-teal/70">
+                      {s.subtitle}
+                    </p>
+                  )}
                   <p className="mt-2 text-sm leading-relaxed text-charcoal/65">{s.tagline}</p>
                 </Link>
               </TiltCard>

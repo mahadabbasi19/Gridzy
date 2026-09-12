@@ -7,9 +7,9 @@ import { useEffect, useMemo, useState } from "react";
 import { services } from "@/lib/data";
 
 const placeholders = [
-  "Search 'Web Development'...",
+  "Search 'Website Development'...",
   "Search 'Mobile App Design'...",
-  "Search 'SEO & Growth'...",
+  "Search 'AI Automations'...",
   "Search 'Custom Software'...",
 ];
 

@@ -25,6 +25,11 @@ export function ServiceDetailContent({
           <h1 className="text-3xl font-black tracking-tight text-white sm:text-5xl">
             {service.title}
           </h1>
+          {service.subtitle && (
+            <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-amber/80">
+              {service.subtitle}
+            </p>
+          )}
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-[#EAF4F3]/90 sm:text-lg">
             {service.description}
           </p>

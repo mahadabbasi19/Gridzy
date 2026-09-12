@@ -6,7 +6,7 @@ import { CTA } from "@/components/CTA";
 export const metadata: Metadata = {
   title: "Our Services | Gridzy — The Tech People",
   description:
-    "End-to-end technology and creative capabilities — from web and mobile development to custom AI software, marketing, and managed infrastructure.",
+    "End-to-end technology and creative capabilities — from web, mobile, and desktop development to custom software, AI automations, and brand design.",
 };
 
 export default function ServicesPage() {
@@ -15,7 +15,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Our Capabilities"
         title="End-to-End Technology & Creative Capabilities"
-        subtitle="Nine disciplines, one accountable team. Explore how Gridzy combines engineering, design, and strategy to move your business forward."
+        subtitle="Seven disciplines, one accountable team. Explore how Gridzy combines engineering, design, and strategy to move your business forward."
       />
       <ServicesPageContent />
       <CTA />

@@ -22,9 +22,9 @@ import { HeroSearchBar } from "./HeroSearchBar";
 // Quick-access tiles link straight to their matching service detail page.
 const appTiles = [
   { icon: Code2, label: "Web", slug: "website-development" },
-  { icon: BrainCircuit, label: "AI", slug: "custom-ai-software-development" },
+  { icon: BrainCircuit, label: "AI", slug: "ai-automations" },
   { icon: Smartphone, label: "Mobile", slug: "mobile-app-development" },
-  { icon: Palette, label: "Brand", slug: "graphic-brand-design" },
+  { icon: Palette, label: "Brand", slug: "graphics-brand-design" },
 ];
 
 const projects = [

@@ -13,20 +13,13 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { services } from "@/lib/data";
 import { Button } from "./ui/Button";
 import { CircuitPattern } from "./CircuitNode";
 
-const serviceChoices = [
-  "Website Development",
-  "Custom AI Software",
-  "Digital Marketing",
-  "Mobile App Development",
-  "Graphic & Brand Design",
-  "PPC Advertising",
-  "SEO",
-  "Customer Support",
-  "Managed Hosting",
-];
+// Sourced from the shared services catalog so this dropdown can never
+// drift out of sync with the actual services offered.
+const serviceChoices = services.map((s) => s.title);
 
 const budgetChoices = [
   "Under $5,000",
