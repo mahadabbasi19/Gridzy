@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   Activity,
   Battery,
@@ -15,8 +16,7 @@ import {
 } from "lucide-react";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-
-const categories = ["Web", "AI", "Mobile"] as const;
+import { HeroSearchBar } from "./HeroSearchBar";
 
 const appTiles = [
   { icon: Code2, label: "Web" },
@@ -59,6 +59,7 @@ export function HeroVisual() {
     >
       {/* ambient glow */}
       <div className="absolute inset-3 rounded-[2rem] bg-primary-teal/20 blur-2xl sm:inset-8 sm:rounded-[3rem] sm:blur-3xl" />
+      <div className="absolute inset-6 rounded-[2rem] bg-amber/10 blur-3xl sm:inset-12 sm:rounded-[3rem]" />
 
       {/* floating 3D container: continuous bob + cursor-driven tilt.
           Below sm, only the mobile app mockup shows (full-size,
@@ -89,14 +90,18 @@ export function HeroVisual() {
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             style={{ transform: "translateZ(0px)" }}
-            className="hidden rounded-2xl border border-white/15 bg-white/[0.06] p-4 shadow-2xl backdrop-blur-xl sm:absolute sm:right-0 sm:top-10 sm:block sm:w-[19rem] lg:w-[21rem]"
+            className="hidden rounded-2xl border border-white/15 bg-white/[0.06] p-4 shadow-2xl shadow-black/30 ring-1 ring-white/5 backdrop-blur-xl sm:absolute sm:right-0 sm:top-10 sm:block sm:w-[19rem] lg:w-[21rem]"
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-amber/70" />
-                <span className="h-2 w-2 rounded-full bg-white/20" />
-                <span className="h-2 w-2 rounded-full bg-white/20" />
-                <span className="ml-2 text-[10px] font-medium text-white/40">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/logos/favicon.png"
+                  alt="Gridzy"
+                  width={18}
+                  height={18}
+                  className="h-[18px] w-[18px] shrink-0 rounded-full ring-1 ring-white/20"
+                />
+                <span className="text-[10px] font-bold tracking-wide text-white/80">
                   Gridzy Analytics
                 </span>
               </div>
@@ -174,58 +179,60 @@ export function HeroVisual() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             style={{ transform: "translateZ(60px)" }}
-            className="relative w-full max-w-[13rem] rounded-3xl border border-white/20 bg-white/10 p-3.5 shadow-2xl backdrop-blur-md xs:max-w-[14rem] sm:absolute sm:-bottom-2 sm:left-0 sm:w-48 sm:max-w-none lg:w-52"
+            className="relative w-full max-w-[13rem] rounded-[2rem] border border-white/20 bg-white/10 p-1.5 shadow-2xl shadow-black/40 ring-1 ring-white/10 backdrop-blur-md xs:max-w-[14rem] sm:absolute sm:-bottom-2 sm:left-0 sm:w-48 sm:max-w-none lg:w-52"
           >
-            <div className="flex items-center justify-between px-0.5 text-white/70">
-              <span className="text-[9px] font-semibold">9:41</span>
-              <div className="flex items-center gap-1">
-                <Signal size={10} />
-                <Wifi size={10} />
-                <Battery size={12} />
-              </div>
-            </div>
+            {/* device bezel notch */}
+            <div className="absolute left-1/2 top-1.5 z-10 h-3 w-14 -translate-x-1/2 rounded-full bg-black/40" />
 
-            <div className="mt-3 flex items-center justify-between">
-              <p className="text-sm font-extrabold text-white">Gridzy</p>
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
-                <Bell size={12} className="text-amber" />
-              </div>
-            </div>
-
-            <div className="mt-3 flex gap-1.5">
-              {categories.map((c, i) => (
-                <span
-                  key={c}
-                  className={cn(
-                    "rounded-full px-2.5 py-1 text-[9px] font-semibold",
-                    i === 0
-                      ? "bg-amber text-charcoal"
-                      : "border border-white/15 text-white/50"
-                  )}
-                >
-                  {c}
-                </span>
-              ))}
-            </div>
-
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              {appTiles.map((t) => (
-                <div
-                  key={t.label}
-                  className="flex flex-col items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 py-3"
-                >
-                  <t.icon size={16} className="text-primary-teal" strokeWidth={2} />
-                  <span className="text-[8px] font-medium text-white/50">
-                    {t.label}
-                  </span>
+            <div className="rounded-[1.6rem] bg-white/5 p-2.5 pt-3.5">
+              <div className="flex items-center justify-between px-0.5 text-white/70">
+                <span className="text-[9px] font-semibold">9:41</span>
+                <div className="flex items-center gap-1">
+                  <Signal size={10} />
+                  <Wifi size={10} />
+                  <Battery size={12} />
                 </div>
-              ))}
-            </div>
+              </div>
 
-            <div className="mt-3 flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5">
-              <Activity size={13} className="text-amber" />
-              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full w-4/5 rounded-full bg-gradient-to-r from-primary-teal to-amber" />
+              <div className="mt-3 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <Image
+                    src="/logos/favicon.png"
+                    alt="Gridzy"
+                    width={20}
+                    height={20}
+                    className="h-5 w-5 shrink-0 rounded-full ring-1 ring-white/20"
+                  />
+                  <p className="text-sm font-extrabold text-white">Gridzy</p>
+                </div>
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10">
+                  <Bell size={12} className="text-amber" />
+                </div>
+              </div>
+
+              <div className="mt-3">
+                <HeroSearchBar />
+              </div>
+
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                {appTiles.map((t) => (
+                  <div
+                    key={t.label}
+                    className="flex flex-col items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 py-3"
+                  >
+                    <t.icon size={16} className="text-primary-teal" strokeWidth={2} />
+                    <span className="text-[8px] font-medium text-white/50">
+                      {t.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-3 flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5">
+                <Activity size={13} className="text-amber" />
+                <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full w-4/5 rounded-full bg-gradient-to-r from-primary-teal to-amber" />
+                </div>
               </div>
             </div>
           </motion.div>
