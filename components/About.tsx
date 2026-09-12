@@ -25,17 +25,16 @@ export function About() {
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          <div className="relative aspect-square w-full max-w-md mx-auto rounded-2xl border border-border-teal bg-soft-teal p-10">
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-teal/5 to-transparent" />
-            <div className="relative flex h-full w-full items-center justify-center">
-              <Image
-                src="/logos/icon.png"
-                alt="Gridzy circuit-node mark"
-                width={260}
-                height={260}
-                className="w-3/5 drop-shadow-xl"
-              />
-            </div>
+          <div className="relative aspect-[4/3] w-full max-w-lg mx-auto overflow-hidden rounded-2xl border border-border-teal bg-soft-teal shadow-xl shadow-charcoal/5">
+            <Image
+              src="/images/about-team.jpg"
+              alt="The Gridzy multidisciplinary team collaborating in the office"
+              fill
+              sizes="(min-width: 1024px) 32rem, 90vw"
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-deep-teal/25 via-transparent to-transparent" />
             <CircuitPattern className="absolute -bottom-6 -left-6 h-24 w-24 sm:-bottom-10 sm:-left-10 sm:h-40 sm:w-40" />
             <CircuitPattern className="absolute -right-6 -top-6 h-24 w-24 rotate-90 sm:-right-10 sm:-top-10 sm:h-40 sm:w-40" />
           </div>

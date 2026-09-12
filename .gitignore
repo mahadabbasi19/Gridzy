@@ -42,6 +42,7 @@ next-env.d.ts
 
 # source assets not used at runtime
 /logos
+/assets
 gridzy.zip
 /gridzy
 *.zip
