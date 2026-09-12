@@ -2,101 +2,102 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { portfolioProjects } from "@/lib/data";
+import { recentWork } from "@/lib/data";
 import { Button } from "./ui/Button";
 import { TiltCard } from "./TiltCard";
 
-export function PortfolioTeaser() {
-  const featured = portfolioProjects.slice(0, 3);
+function domainOf(url: string) {
+  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+}
 
+export function PortfolioTeaser() {
   return (
-    <section className="bg-soft-teal py-24">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="relative overflow-hidden bg-deep-teal py-24">
+      <div className="circuit-grid absolute inset-0 opacity-[0.12]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(21,91,88,0.5),transparent)]" />
+
+      <div className="relative mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.15em] text-primary-teal">
+          <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary-teal bg-primary-teal/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-amber">
             Our Work
-          </p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">
-            Recent Case Studies
+          </span>
+          <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
+            Recent Work
           </h2>
-          <p className="mt-4 text-base text-charcoal/70">
-            A snapshot of the digital products, brands, and experiences we&apos;ve
-            crafted for our partners.
+          <p className="mt-4 text-base text-[#EAF4F3]/70">
+            Live products we&apos;ve shipped for our partners — click any card
+            to visit the site.
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((p, i) => (
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {recentWork.map((project, i) => (
             <motion.div
-              key={p.id}
+              key={project.url}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="flex"
             >
-              <TiltCard className="h-full">
-                <Link
-                  href={`/portfolio/${p.id}`}
-                  data-cursor="VIEW CASE STUDY"
-                  className="group relative block aspect-[4/3] overflow-hidden rounded-2xl border border-border-teal shadow-lg shadow-charcoal/5 transition-shadow duration-500 hover:shadow-2xl hover:shadow-primary-teal/20"
+              <TiltCard className="h-full w-full">
+                {/* Whole card is one link — opens the live site directly in
+                    a new tab, never an internal case-study route. */}
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="VISIT SITE"
+                  aria-label={`Visit ${project.title} (opens in a new tab)`}
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-primary-teal/30 bg-[#0A2E2C] shadow-2xl shadow-black/30 ring-1 ring-white/5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-amber/50 hover:shadow-amber/10"
                 >
-                  <div
-                    className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"
-                    style={{
-                      background: `linear-gradient(150deg, ${p.color} 0%, #14181c 130%)`,
-                    }}
-                  >
-                    <div
-                      className="absolute inset-0 opacity-[0.15]"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
-                        backgroundSize: "26px 26px",
-                      }}
-                    />
-                    <div className="absolute inset-x-5 top-5 flex items-center gap-1.5">
-                      <span className="h-2 w-2 rounded-full bg-white/40" />
-                      <span className="h-2 w-2 rounded-full bg-white/25" />
-                      <span className="h-2 w-2 rounded-full bg-white/25" />
-                      <span className="ml-auto h-2 w-14 rounded-full bg-white/15" />
-                    </div>
-                    <div className="absolute left-5 top-14 h-[calc(100%-4.5rem)] w-12 rounded-lg bg-white/10" />
-                    <div className="absolute left-20 right-5 top-14 flex flex-col gap-2.5">
-                      <div className="h-16 w-full rounded-lg bg-white/10" />
-                      <div className="flex gap-2.5">
-                        <div className="h-10 w-1/2 rounded-lg bg-white/10" />
-                        <div className="h-10 w-1/2 rounded-lg bg-white/10" />
-                      </div>
-                    </div>
-                  </div>
+                  <span className="absolute inset-x-0 top-0 z-10 h-0.5 origin-left scale-x-0 bg-amber transition-transform duration-300 group-hover:scale-x-100" />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/10 to-transparent" />
-
-                  <div className="absolute right-4 top-4 flex flex-wrap justify-end gap-1.5">
-                    {p.services.slice(0, 2).map((s) => (
-                      <span
-                        key={s}
-                        className="rounded-full border border-white/25 bg-white/10 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wide text-white backdrop-blur-md"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="absolute inset-x-0 bottom-0 flex flex-col p-5">
-                    <span className="mb-2 w-fit rounded-full bg-amber px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-charcoal">
-                      {p.result}
+                  {/* Browser-chrome frame around the live snapshot, matching
+                      the device-mockup language used in the Hero/Process
+                      sections, so a mixed batch of external site screenshots
+                      still reads as one cohesive Gridzy component. */}
+                  <div className="flex items-center gap-1.5 border-b border-primary-teal/30 bg-[#0A2E2C] px-3.5 py-2.5">
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-amber/70" />
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-white/15" />
+                    <span className="h-2 w-2 shrink-0 rounded-full bg-white/15" />
+                    <span className="ml-2 truncate rounded-md bg-white/5 px-2 py-0.5 text-[10px] font-medium text-white/45">
+                      {domainOf(project.url)}
                     </span>
-                    <p className="flex items-center gap-1.5 text-lg font-bold text-white">
-                      {p.title}
-                      <ArrowUpRight
-                        size={16}
-                        className="opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
-                      />
-                    </p>
+                    <ArrowUpRight
+                      size={13}
+                      className="ml-auto shrink-0 text-white/30 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-amber"
+                    />
                   </div>
-                </Link>
+
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} homepage preview`}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A2E2C] via-transparent to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-primary-teal mix-blend-color opacity-[0.12]" />
+                  </div>
+
+                  <div className="flex flex-1 flex-col gap-3 p-5">
+                    <p className="text-base font-bold text-white">{project.title}</p>
+                    <div className="flex min-h-[2.7rem] flex-wrap items-start gap-1.5">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-primary-teal/40 bg-primary-teal/15 px-2.5 py-1 text-[10px] font-semibold text-[#EAF4F3]/80"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </a>
               </TiltCard>
             </motion.div>
           ))}
@@ -104,7 +105,7 @@ export function PortfolioTeaser() {
 
         <div className="mt-12 text-center">
           <Link href="/portfolio">
-            <Button variant="teal" size="lg">
+            <Button size="lg">
               View Full Portfolio <ArrowRight size={18} />
             </Button>
           </Link>

@@ -355,3 +355,40 @@ export const portfolioCategories: PortfolioCategory[] = [
   "Graphics",
   "Logos",
 ];
+
+export interface RecentWorkItem {
+  title: string;
+  url: string;
+  image: string;
+  tags: string[];
+}
+
+// Real, live client projects — each card links straight out to the
+// production site (target="_blank"), not to an internal case-study page.
+// Keep this exact sequence; it's the order requested for display.
+export const recentWork: RecentWorkItem[] = [
+  {
+    title: "SS Track",
+    url: "https://www.sstrack.io/",
+    image: "/portfolio/sstrack.jpg",
+    tags: ["Website Development", "Custom Software Development (HRM)"],
+  },
+  {
+    title: "B&B Traders",
+    url: "https://bbtraders.info/",
+    image: "/portfolio/bbtraders.jpg",
+    tags: ["Website Development", "Custom Software Development", "Mobile App Development"],
+  },
+  {
+    title: "CodeNova AI",
+    url: "https://codenovaa.com/",
+    image: "/portfolio/codenova.jpg",
+    tags: ["Website Development", "Desktop Application"],
+  },
+  {
+    title: "Yousfis Europe",
+    url: "https://www.yousfis.com/",
+    image: "/portfolio/yousfis.jpg",
+    tags: ["Website Development"],
+  },
+];
