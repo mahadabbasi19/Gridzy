@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Activity,
   Battery,
@@ -18,11 +19,12 @@ import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { HeroSearchBar } from "./HeroSearchBar";
 
+// Quick-access tiles link straight to their matching service detail page.
 const appTiles = [
-  { icon: Code2, label: "Web" },
-  { icon: BrainCircuit, label: "AI" },
-  { icon: Smartphone, label: "Mobile" },
-  { icon: Palette, label: "Brand" },
+  { icon: Code2, label: "Web", slug: "website-development" },
+  { icon: BrainCircuit, label: "AI", slug: "custom-ai-software-development" },
+  { icon: Smartphone, label: "Mobile", slug: "mobile-app-development" },
+  { icon: Palette, label: "Brand", slug: "graphic-brand-design" },
 ];
 
 const projects = [
@@ -78,18 +80,23 @@ export function HeroVisual() {
         style={{ transformStyle: "preserve-3d" }}
       >
         <div
-          className="relative flex h-full w-full items-center justify-center transition-transform duration-300 ease-out sm:block"
-          style={{
-            transformStyle: "preserve-3d",
-            transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
-          }}
+          className="relative flex h-full w-full items-center justify-center sm:block"
+          style={{ transformStyle: "preserve-3d" }}
         >
-          {/* Layer 2 — mid-ground web dashboard, offset behind (desktop only) */}
+          {/* Layer 2 — mid-ground web dashboard, offset behind (desktop only).
+              The cursor-driven tilt lives here (decorative only) rather than
+              on the shared wrapper — keeping it off the interactive mobile
+              mockup below means the search bar and its dropdown never shift
+              position under the cursor mid-click, which was silently
+              swallowing taps/clicks on its buttons. */}
           <motion.div
             initial={{ opacity: 0, x: 30, y: 10 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            style={{ transform: "translateZ(0px)" }}
+            style={{
+              transform: `translateZ(0px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+              transition: "transform 0.3s ease-out",
+            }}
             className="hidden rounded-2xl border border-white/15 bg-white/[0.06] p-4 shadow-2xl shadow-black/30 ring-1 ring-white/5 backdrop-blur-xl sm:absolute sm:right-0 sm:top-10 sm:block sm:w-[19rem] lg:w-[21rem]"
           >
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
@@ -179,7 +186,7 @@ export function HeroVisual() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             style={{ transform: "translateZ(60px)" }}
-            className="relative w-full max-w-[13rem] rounded-[2rem] border border-white/20 bg-white/10 p-1.5 shadow-2xl shadow-black/40 ring-1 ring-white/10 backdrop-blur-md xs:max-w-[14rem] sm:absolute sm:-bottom-2 sm:left-0 sm:w-48 sm:max-w-none lg:w-52"
+            className="relative w-full max-w-[10.5rem] rounded-[2rem] border border-white/20 bg-white/10 p-1.5 shadow-2xl shadow-black/40 ring-1 ring-white/10 backdrop-blur-md xs:max-w-[11.5rem] sm:absolute sm:-bottom-2 sm:left-0 sm:w-48 sm:max-w-none lg:w-52"
           >
             {/* device bezel notch */}
             <div className="absolute left-1/2 top-1.5 z-10 h-3 w-14 -translate-x-1/2 rounded-full bg-black/40" />
@@ -214,17 +221,18 @@ export function HeroVisual() {
                 <HeroSearchBar />
               </div>
 
-              <div className="mt-3 grid grid-cols-2 gap-2">
+              <div className="relative z-10 mt-3 grid grid-cols-2 gap-2">
                 {appTiles.map((t) => (
-                  <div
+                  <Link
                     key={t.label}
-                    className="flex flex-col items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 py-3"
+                    href={`/services/${t.slug}`}
+                    className="flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 py-3 transition-transform active:scale-95 hover:border-amber/40 hover:bg-white/10"
                   >
                     <t.icon size={16} className="text-primary-teal" strokeWidth={2} />
                     <span className="text-[8px] font-medium text-white/50">
                       {t.label}
                     </span>
-                  </div>
+                  </Link>
                 ))}
               </div>
 

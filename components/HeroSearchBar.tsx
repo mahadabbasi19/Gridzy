@@ -63,36 +63,43 @@ export function HeroSearchBar() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      go(filtered[0]?.slug);
-    } else if (e.key === "Escape") {
+    if (e.key === "Escape") {
       setQuery("");
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    go(filtered[0]?.slug);
+  };
+
   return (
-    <div className="relative z-20">
-      <div
+    <div className="relative z-30 pointer-events-auto">
+      <form
+        onSubmit={handleSubmit}
         className={`flex items-center gap-2 rounded-xl border px-2.5 py-2 transition-colors duration-200 ${
           focused
             ? "border-amber/70 bg-white/10 ring-2 ring-amber/25"
             : "border-white/15 bg-white/5"
         }`}
       >
-        <Search
-          size={12}
-          className={`shrink-0 transition-colors ${focused ? "text-amber" : "text-white/45"}`}
-        />
+        <button
+          type="submit"
+          aria-label="Search"
+          className="shrink-0 text-white/45 transition-colors hover:text-amber active:scale-90"
+        >
+          <Search size={12} className={focused ? "text-amber" : undefined} />
+        </button>
         <div className="relative min-w-0 flex-1">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setFocused(true)}
-            onBlur={() => setTimeout(() => setFocused(false), 130)}
+            onBlur={() => setTimeout(() => setFocused(false), 150)}
             onKeyDown={handleKeyDown}
             aria-label="Search services"
-            className="w-full bg-transparent text-[10px] font-medium text-white outline-none"
+            autoComplete="off"
+            className="relative z-10 w-full bg-transparent text-[10px] font-medium text-white outline-none"
           />
           {!query && (
             <AnimatePresence mode="wait">
@@ -111,15 +118,16 @@ export function HeroSearchBar() {
         </div>
         {query && (
           <button
+            type="button"
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => setQuery("")}
             aria-label="Clear search"
-            className="shrink-0 rounded-full p-0.5 text-white/40 transition-colors hover:text-white"
+            className="shrink-0 rounded-full p-0.5 text-white/40 transition-colors hover:text-white active:scale-90"
           >
             <X size={11} />
           </button>
         )}
-      </div>
+      </form>
 
       <AnimatePresence>
         {showDropdown && (
@@ -128,16 +136,17 @@ export function HeroSearchBar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute inset-x-0 top-[calc(100%+6px)] overflow-hidden rounded-xl border border-white/15 bg-[#0A2E2C]/95 shadow-2xl shadow-black/40 backdrop-blur-xl"
+            className="pointer-events-auto absolute inset-x-0 top-[calc(100%+6px)] z-30 overflow-hidden rounded-xl border border-white/15 bg-[#0A2E2C]/95 shadow-2xl shadow-black/40 backdrop-blur-xl"
           >
             {filtered.length > 0 ? (
               <ul>
                 {filtered.map((s) => (
                   <li key={s.slug}>
                     <button
+                      type="button"
                       onMouseDown={(e) => e.preventDefault()}
                       onClick={() => go(s.slug)}
-                      className="flex w-full items-center gap-2 px-2.5 py-2 text-left transition-colors hover:bg-white/10"
+                      className="flex w-full cursor-pointer items-center gap-2 px-2.5 py-2 text-left transition-colors hover:bg-white/10 active:scale-[0.98]"
                     >
                       <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-amber/15 text-amber">
                         <s.icon size={12} />
@@ -157,9 +166,10 @@ export function HeroSearchBar() {
               </ul>
             ) : (
               <button
+                type="button"
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => go()}
-                className="flex w-full items-center gap-2 px-3 py-3 text-left transition-colors hover:bg-white/10"
+                className="flex w-full cursor-pointer items-center gap-2 px-3 py-3 text-left transition-colors hover:bg-white/10 active:scale-[0.98]"
               >
                 <SearchX size={13} className="shrink-0 text-white/40" />
                 <span className="text-[10px] text-white/60">
