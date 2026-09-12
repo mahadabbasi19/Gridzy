@@ -3,16 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Search, ShoppingCart, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./ui/Button";
-import { CartDrawer } from "./CartDrawer";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Pricing", href: "/pricing" },
   { label: "Our Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Contact Us", href: "/contact" },
@@ -21,8 +19,6 @@ const navLinks = [
 export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -62,21 +58,6 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-1.5 sm:gap-3">
-          <button
-            onClick={() => setSearchOpen((s) => !s)}
-            aria-label="Search"
-            className="hidden rounded-full p-2.5 text-charcoal transition-colors hover:bg-soft-teal hover:text-primary-teal sm:flex"
-          >
-            <Search size={19} />
-          </button>
-          <button
-            onClick={() => setCartOpen(true)}
-            aria-label="Cart"
-            className="relative rounded-full p-2.5 text-charcoal transition-colors hover:bg-soft-teal hover:text-primary-teal"
-          >
-            <ShoppingCart size={19} />
-            <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-amber" />
-          </button>
           <Link href="/contact">
             <Button size="sm" className="hidden md:inline-flex">
               Let&apos;s Connect
@@ -91,17 +72,6 @@ export function Navbar() {
           </button>
         </div>
       </div>
-
-      {searchOpen && (
-        <div className="border-t border-border-teal bg-white px-6 py-3">
-          <input
-            autoFocus
-            type="text"
-            placeholder="Search Gridzy..."
-            className="w-full max-w-2xl mx-auto block rounded-full border border-border-teal bg-off-white px-5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary-teal"
-          />
-        </div>
-      )}
 
       <div
         className={cn(
@@ -132,8 +102,6 @@ export function Navbar() {
           </div>
         </nav>
       </div>
-
-      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </header>
   );
 }
