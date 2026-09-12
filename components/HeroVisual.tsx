@@ -186,7 +186,7 @@ export function HeroVisual() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             style={{ transform: "translateZ(60px)" }}
-            className="relative w-full max-w-[10.5rem] rounded-[2rem] border border-white/20 bg-white/10 p-1.5 shadow-2xl shadow-black/40 ring-1 ring-white/10 backdrop-blur-md xs:max-w-[11.5rem] sm:absolute sm:-bottom-2 sm:left-0 sm:w-48 sm:max-w-none lg:w-52"
+            className="relative w-full max-w-[9.5rem] rounded-[2rem] border border-white/20 bg-white/10 p-1.5 shadow-2xl shadow-black/40 ring-1 ring-white/10 backdrop-blur-md xs:max-w-[10.5rem] sm:absolute sm:-bottom-2 sm:left-0 sm:w-36 sm:max-w-none lg:w-40"
           >
             {/* device bezel notch */}
             <div className="absolute left-1/2 top-1.5 z-10 h-3 w-14 -translate-x-1/2 rounded-full bg-black/40" />
