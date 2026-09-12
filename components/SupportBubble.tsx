@@ -8,14 +8,14 @@ export function SupportBubble() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0, y: 12, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.95 }}
-            className="w-72 rounded-2xl border border-border-teal bg-white p-5 shadow-2xl"
+            className="w-[calc(100vw-2rem)] max-w-72 rounded-2xl border border-border-teal bg-white p-5 shadow-2xl"
           >
             <p className="text-sm font-bold text-charcoal">Need a hand?</p>
             <p className="mt-1 text-sm text-charcoal/60">
@@ -34,9 +34,9 @@ export function SupportBubble() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Support"
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-amber text-charcoal shadow-lg shadow-amber/30 transition-transform hover:scale-110"
+        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber text-charcoal shadow-lg shadow-amber/30 transition-transform hover:scale-110 sm:h-14 sm:w-14"
       >
-        {open ? <X size={22} /> : <Headset size={22} />}
+        {open ? <X size={20} /> : <Headset size={20} />}
       </button>
     </div>
   );
