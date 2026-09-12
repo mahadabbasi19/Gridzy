@@ -237,23 +237,6 @@ export function HeroVisual() {
             </div>
           </motion.div>
 
-          {/* Layer 3 — floating status badge, frontmost (desktop only) */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            style={{ transform: "translateZ(90px)" }}
-            className="hidden items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-950/40 px-4 py-2 shadow-lg backdrop-blur-lg sm:absolute sm:-bottom-6 sm:right-2 sm:flex"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            <span className="whitespace-nowrap text-[11px] font-semibold text-emerald-50">
-              AI Engine Active <span className="text-emerald-400/70">•</span>{" "}
-              99.9% Uptime
-            </span>
-          </motion.div>
         </div>
       </motion.div>
     </div>
