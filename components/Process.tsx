@@ -20,7 +20,7 @@ const steps = [
   {
     icon: ClipboardList,
     title: "Discovery & Requirements",
-    desc: "We dig into your goals, users, and constraints through stakeholder workshops to define exactly what needs to be built.",
+    desc: "Workshops to define your goals and exactly what to build.",
     tag: "gridzy / brief.md",
     mock: [
       { label: "Goals defined", value: "100%" },
@@ -31,7 +31,7 @@ const steps = [
   {
     icon: Target,
     title: "Strategy & Planning",
-    desc: "Scope, architecture, and a milestone roadmap are locked in, so everyone knows what's shipping and when.",
+    desc: "Scope, architecture, and a milestone roadmap locked in.",
     tag: "gridzy / roadmap.plan",
     mock: [
       { label: "Milestones", value: "5" },
@@ -42,7 +42,7 @@ const steps = [
   {
     icon: Palette,
     title: "UI/UX Design",
-    desc: "Wireframes evolve into a polished, high-fidelity design system covering every screen and interaction.",
+    desc: "Wireframes evolve into a polished, full design system.",
     tag: "gridzy / design-system.fig",
     mock: [
       { label: "Screens designed", value: "42" },
@@ -53,7 +53,7 @@ const steps = [
   {
     icon: Code2,
     title: "Development",
-    desc: "Engineers build in focused sprints with weekly demos, keeping you looped in as the product takes shape.",
+    desc: "Focused sprints with weekly demos to keep you in the loop.",
     tag: "gridzy / build.log",
     mock: [
       { label: "Sprint progress", value: "78%" },
@@ -64,7 +64,7 @@ const steps = [
   {
     icon: ShieldCheck,
     title: "Quality Assurance",
-    desc: "Rigorous cross-device, performance, and security testing before anything reaches your users.",
+    desc: "Cross-device, performance, and security testing, end to end.",
     tag: "gridzy / qa-report.json",
     mock: [
       { label: "Test coverage", value: "94%" },
@@ -75,7 +75,7 @@ const steps = [
   {
     icon: Rocket,
     title: "Launch",
-    desc: "Domain cutover, deployment, and monitoring go live — your product ships with confidence.",
+    desc: "Domain cutover and deployment — your product ships live.",
     tag: "gridzy / deploy.sh",
     mock: [
       { label: "Deployment", value: "Live" },
@@ -86,7 +86,7 @@ const steps = [
   {
     icon: LineChart,
     title: "Support & Growth",
-    desc: "We stay on for post-launch iteration, monitoring, and optimization as your product grows.",
+    desc: "Ongoing iteration and monitoring as your product grows.",
     tag: "gridzy / growth.dash",
     mock: [
       { label: "Response time", value: "< 4h" },
