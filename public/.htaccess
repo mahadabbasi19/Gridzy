@@ -1,0 +1,88 @@
+# ============================================================
+# Gridzy — Apache/cPanel hardening for the static export
+# Lives in public/.htaccess so `next build` copies it into out/
+# automatically on every deploy — no manual step required.
+# ============================================================
+
+# --- Force HTTPS -------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# --- Directory listing & server info -----------------------------
+Options -Indexes
+ServerSignature Off
+
+<IfModule mod_headers.c>
+  Header unset X-Powered-By
+  Header unset Server
+</IfModule>
+
+# --- Block access to sensitive / non-public files -----------------
+# (defense in depth — none of these should exist in a static export,
+# but block them in case a source file is ever accidentally uploaded
+# alongside it, e.g. via a messy cPanel File Manager upload)
+
+# any dotfile (.env, .git*, .htaccess itself, etc.) except the ACME
+# challenge directory some hosts use for SSL certificate issuance
+<FilesMatch "^\.(?!well-known)">
+  Require all denied
+</FilesMatch>
+
+# common project/source files that should never be web-accessible
+<FilesMatch "^(package(-lock)?\.json|tsconfig\.json|next\.config\.(js|ts|mjs)|postcss\.config\.(js|ts|mjs)|eslint\.config\.(js|ts|mjs)|README\.md|AGENTS\.md|CLAUDE\.md)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_alias.c>
+  RedirectMatch 403 ^/(\.git|\.next|node_modules|gridzy)(/|$)
+</IfModule>
+
+# --- Security headers ----------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# --- Caching ---------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Next.js build assets are content-hashed — safe to cache forever
+  <FilesMatch "\.(js|css|woff2?|ttf|otf)$">
+    ExpiresDefault "access plus 1 year"
+    Header append Cache-Control "public, immutable"
+  </FilesMatch>
+
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpg "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+
+  # HTML should revalidate so content updates show up promptly
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# --- Compression ------------------------------------------------------
+# AddOutputFilterByType requires mod_filter, which mod_deflate depends
+# on anyway — but nest the guard so a stripped-down host degrades to
+# "no compression" instead of a fatal "Invalid command" 500 error.
+<IfModule mod_deflate.c>
+  <IfModule mod_filter.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/json application/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+  </IfModule>
+</IfModule>
+
+# --- Custom 404 (matches the static export's generated page) ----------
+ErrorDocument 404 /404/index.html
