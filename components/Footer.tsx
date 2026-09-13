@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { FacebookIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "./icons/SocialIcons";
 import { services } from "@/lib/data";
+import { ADDRESS_SHORT, PHONE_DISPLAY, PHONE_WHATSAPP_URL } from "@/lib/contact";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -88,7 +89,7 @@ export function Footer() {
             <ul className="mt-5 flex flex-col gap-4 text-sm text-off-white/70">
               <li className="flex items-start gap-2.5">
                 <MapPin size={16} className="mt-0.5 shrink-0 text-amber" />
-                Head Office: Karachi, Pakistan
+                Head Office: {ADDRESS_SHORT}
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail size={16} className="shrink-0 text-amber" />
@@ -96,7 +97,14 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone size={16} className="shrink-0 text-amber" />
-                +92 333 0000000
+                <a
+                  href={PHONE_WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-amber"
+                >
+                  {PHONE_DISPLAY}
+                </a>
               </li>
             </ul>
           </div>

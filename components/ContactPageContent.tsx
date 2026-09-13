@@ -14,8 +14,15 @@ import {
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { services } from "@/lib/data";
+import {
+  ADDRESS_FULL,
+  ADDRESS_SHORT,
+  MAP_DIRECTIONS_URL,
+  MAP_EMBED_URL,
+  PHONE_DISPLAY,
+  PHONE_WHATSAPP_URL,
+} from "@/lib/contact";
 import { Button } from "./ui/Button";
-import { CircuitPattern } from "./CircuitNode";
 
 // Sourced from the shared services catalog so this dropdown can never
 // drift out of sync with the actual services offered.
@@ -60,7 +67,7 @@ export function ContactPageContent() {
             Let&apos;s Build Something Great
           </h2>
           <p className="mt-4 text-base leading-relaxed text-charcoal/70">
-            Reach our Karachi head office directly, or fill out the project
+            Reach our {ADDRESS_SHORT} head office directly, or fill out the project
             inquiry form and a strategist will follow up within one business
             day.
           </p>
@@ -72,7 +79,7 @@ export function ContactPageContent() {
               </div>
               <div>
                 <p className="text-sm font-bold text-charcoal">Head Office</p>
-                <p className="text-sm text-charcoal/65">Karachi, Pakistan</p>
+                <p className="text-sm text-charcoal/65">{ADDRESS_FULL}</p>
               </div>
             </div>
             <div className="flex items-start gap-3.5">
@@ -100,7 +107,14 @@ export function ContactPageContent() {
               </div>
               <div>
                 <p className="text-sm font-bold text-charcoal">Call Us</p>
-                <p className="text-sm text-charcoal/65">+92 333 0000000</p>
+                <a
+                  href={PHONE_WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-charcoal/65 hover:text-primary-teal"
+                >
+                  {PHONE_DISPLAY} <span className="text-charcoal/40">— WhatsApp</span>
+                </a>
               </div>
             </div>
             <div className="flex items-start gap-3.5">
@@ -114,15 +128,25 @@ export function ContactPageContent() {
             </div>
           </div>
 
-          <div className="relative mt-8 aspect-video overflow-hidden rounded-2xl border border-border-teal bg-deep-teal">
-            <div className="circuit-grid absolute inset-0 opacity-30" />
-            <CircuitPattern className="absolute inset-0 h-full w-full opacity-60" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center">
-              <MapPin className="text-amber" size={26} />
-              <p className="text-sm font-bold text-white">Karachi, Pakistan</p>
-              <p className="text-xs text-[#EAF4F3]/70">Interactive map preview</p>
-            </div>
-          </div>
+          <a
+            href={MAP_DIRECTIONS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Get directions to our ${ADDRESS_SHORT} office (opens Google Maps in a new tab)`}
+            className="group relative mt-8 block aspect-video overflow-hidden rounded-2xl border border-border-teal"
+          >
+            <iframe
+              src={MAP_EMBED_URL}
+              title="Gridzy office location"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="pointer-events-none h-full w-full border-0"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-charcoal/0 transition-colors duration-300 group-hover:bg-charcoal/10" />
+            <span className="pointer-events-none absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-white px-3.5 py-2 text-xs font-bold text-charcoal opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100">
+              <MapPin size={13} className="text-amber" /> Get Directions
+            </span>
+          </a>
 
           <div className="mt-8 flex items-center gap-4 rounded-2xl border border-border-teal bg-soft-teal p-5">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber text-charcoal">

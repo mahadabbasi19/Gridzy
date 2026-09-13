@@ -45,7 +45,7 @@ const sections = [
   },
   {
     title: "10. Contact Us",
-    body: "For questions about this privacy policy or how we handle your data, reach us at info@gridzy.dev or write to our head office in Karachi, Pakistan.",
+    body: "For questions about this privacy policy or how we handle your data, reach us at info@gridzy.dev or write to our head office in Bahria Town, Karachi, Pakistan.",
   },
 ];
 
