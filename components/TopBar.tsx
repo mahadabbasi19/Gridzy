@@ -1,6 +1,6 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { FacebookIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "./icons/SocialIcons";
-import { ADDRESS_SHORT, PHONE_DISPLAY, PHONE_WHATSAPP_URL } from "@/lib/contact";
+import { ADDRESS_SHORT, EMAIL_INFO, PHONE_DISPLAY, PHONE_WHATSAPP_URL } from "@/lib/contact";
 
 export function TopBar() {
   return (
@@ -11,10 +11,10 @@ export function TopBar() {
             <MapPin size={13} className="text-amber" /> {ADDRESS_SHORT}
           </span>
           <a
-            href="mailto:sales@gridzy.dev"
+            href={`mailto:${EMAIL_INFO}`}
             className="flex items-center gap-1.5 hover:text-amber transition-colors"
           >
-            <Mail size={13} className="text-amber" /> sales@gridzy.dev
+            <Mail size={13} className="text-amber" /> {EMAIL_INFO}
           </a>
           <a
             href={PHONE_WHATSAPP_URL}

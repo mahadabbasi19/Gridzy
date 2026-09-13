@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { FacebookIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "./icons/SocialIcons";
 import { services } from "@/lib/data";
-import { ADDRESS_SHORT, PHONE_DISPLAY, PHONE_WHATSAPP_URL } from "@/lib/contact";
+import { ADDRESS_SHORT, EMAIL_INFO, PHONE_DISPLAY, PHONE_WHATSAPP_URL } from "@/lib/contact";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -93,7 +93,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail size={16} className="shrink-0 text-amber" />
-                info@gridzy.dev
+                {EMAIL_INFO}
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone size={16} className="shrink-0 text-amber" />

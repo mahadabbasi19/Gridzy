@@ -1,3 +1,11 @@
+// Email addresses. EMAIL_INFO is the general/default address shown
+// anywhere generic (top bar, footer). EMAIL_SALES is the one shown as
+// the primary contact on the Contact page and for new-project/quote
+// inquiries. EMAIL_SUPPORT is for existing clients.
+export const EMAIL_INFO = "info@gridzy.dev";
+export const EMAIL_SALES = "sales@gridzy.dev";
+export const EMAIL_SUPPORT = "support@gridzy.dev";
+
 // Single source of truth for the phone number shown across the site.
 // Every phone link below opens a WhatsApp chat rather than a bare tel:
 // link, since that's how the team actually wants to be reached.

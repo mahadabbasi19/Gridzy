@@ -17,6 +17,9 @@ import { services } from "@/lib/data";
 import {
   ADDRESS_FULL,
   ADDRESS_SHORT,
+  EMAIL_INFO,
+  EMAIL_SALES,
+  EMAIL_SUPPORT,
   MAP_DIRECTIONS_URL,
   MAP_EMBED_URL,
   PHONE_DISPLAY,
@@ -89,14 +92,14 @@ export function ContactPageContent() {
               <div>
                 <p className="text-sm font-bold text-charcoal">Email Us</p>
                 <div className="flex flex-col gap-0.5 text-sm text-charcoal/65">
-                  <a href="mailto:sales@gridzy.dev" className="hover:text-primary-teal">
-                    sales@gridzy.dev <span className="text-charcoal/40">— New projects</span>
+                  <a href={`mailto:${EMAIL_SALES}`} className="hover:text-primary-teal">
+                    {EMAIL_SALES} <span className="text-charcoal/40">— New projects</span>
                   </a>
-                  <a href="mailto:info@gridzy.dev" className="hover:text-primary-teal">
-                    info@gridzy.dev <span className="text-charcoal/40">— General inquiries</span>
+                  <a href={`mailto:${EMAIL_INFO}`} className="hover:text-primary-teal">
+                    {EMAIL_INFO} <span className="text-charcoal/40">— General inquiries</span>
                   </a>
-                  <a href="mailto:support@gridzy.dev" className="hover:text-primary-teal">
-                    support@gridzy.dev <span className="text-charcoal/40">— Existing clients</span>
+                  <a href={`mailto:${EMAIL_SUPPORT}`} className="hover:text-primary-teal">
+                    {EMAIL_SUPPORT} <span className="text-charcoal/40">— Existing clients</span>
                   </a>
                 </div>
               </div>

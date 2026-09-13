@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Headset, X } from "lucide-react";
 import { useState } from "react";
+import { EMAIL_SUPPORT } from "@/lib/contact";
 
 export function SupportBubble() {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ export function SupportBubble() {
               get right back to you.
             </p>
             <a
-              href="mailto:support@gridzy.dev"
+              href={`mailto:${EMAIL_SUPPORT}`}
               className="mt-3 inline-block rounded-full bg-amber px-4 py-2 text-xs font-bold text-charcoal transition-colors hover:bg-primary-teal hover:text-white"
             >
               Chat with us

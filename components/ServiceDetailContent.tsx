@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle2, Send } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import type { Service } from "@/lib/data";
+import { EMAIL_SALES } from "@/lib/contact";
 import { Button } from "./ui/Button";
 
 export function ServiceDetailContent({
@@ -168,7 +169,7 @@ export function ServiceDetailContent({
               <CheckCircle2 className="mx-auto text-primary-teal" size={32} />
               <p className="mt-3 font-bold text-charcoal">Request received!</p>
               <p className="mt-1 text-sm text-charcoal/65">
-                A Gridzy strategist will reach out to sales@gridzy.dev shortly.
+                A Gridzy strategist will reach out to {EMAIL_SALES} shortly.
               </p>
             </div>
           ) : (

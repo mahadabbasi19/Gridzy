@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
+import { EMAIL_INFO } from "@/lib/contact";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Gridzy — The Tech People",
@@ -33,7 +34,7 @@ const sections = [
   },
   {
     title: "7. Your Rights",
-    body: "Depending on your jurisdiction, you may have the right to access, correct, delete, or restrict the processing of your personal data, and to receive a copy of it in a portable format. To exercise these rights, contact us at info@gridzy.dev.",
+    body: `Depending on your jurisdiction, you may have the right to access, correct, delete, or restrict the processing of your personal data, and to receive a copy of it in a portable format. To exercise these rights, contact us at ${EMAIL_INFO}.`,
   },
   {
     title: "8. Data Security",
@@ -45,7 +46,7 @@ const sections = [
   },
   {
     title: "10. Contact Us",
-    body: "For questions about this privacy policy or how we handle your data, reach us at info@gridzy.dev or write to our head office in Bahria Town, Karachi, Pakistan.",
+    body: `For questions about this privacy policy or how we handle your data, reach us at ${EMAIL_INFO} or write to our head office in Bahria Town, Karachi, Pakistan.`,
   },
 ];
 
