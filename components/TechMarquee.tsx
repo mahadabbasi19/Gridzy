@@ -7,6 +7,11 @@ const stack = [
   { name: "PHP", src: "/tech/php.svg" },
   { name: "Laravel", src: "/tech/laravel.svg" },
   { name: "Python", src: "/tech/python.svg" },
+  { name: "PostgreSQL", src: "/tech/postgresql.svg" },
+  { name: "MySQL", src: "/tech/mysql.svg" },
+  { name: "SQLite", src: "/tech/sqlite.svg" },
+  { name: "MongoDB", src: "/tech/mongodb.svg" },
+  { name: "Redis", src: "/tech/redis.svg" },
   { name: "Docker", src: "/tech/docker.svg" },
   { name: "Tailwind CSS", src: "/tech/tailwindcss.svg" },
   { name: "Flutter", src: "/tech/flutter.svg" },
@@ -48,19 +53,20 @@ export function TechMarquee() {
           Our Tech Stack
         </p>
       </div>
-      <div
-        className="relative mt-8 overflow-hidden"
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-        }}
-      >
+      <div className="relative mt-8 overflow-hidden">
+        {/* Edge fade via solid gradient overlays rather than CSS
+            mask-image: masking an element that contains a continuously
+            animating transform forces the browser to recomposite the
+            mask every frame, which is what caused the visible
+            stutter/jitter on lower-power mobile and tablet GPUs. Plain
+            gradient panels sit on their own compositor layer and cost
+            nothing per frame. */}
         <div className="marquee-track flex w-max">
           <TechGroup />
           <TechGroup ariaHidden />
         </div>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent sm:w-28" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent sm:w-28" />
       </div>
     </section>
   );
