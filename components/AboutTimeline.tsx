@@ -42,36 +42,25 @@ const milestones = [
   },
 ];
 
-function TimelineItem({ m }: { m: (typeof milestones)[number] }) {
-  const [active, setActive] = useState(false);
-
+function MilestoneCard({
+  m,
+  active,
+  align,
+}: {
+  m: (typeof milestones)[number];
+  active: boolean;
+  align: "left" | "right";
+}) {
   return (
-    <motion.div
-      onViewportEnter={() => setActive(true)}
-      onViewportLeave={() => setActive(false)}
-      // A thin band around vertical center of the screen defines "active" —
-      // whichever milestone currently sits there lights up while the rest
-      // dim (but stay legible), giving the scrollspy effect without
-      // hand-rolled scroll math.
-      viewport={{ once: false, margin: "-45% 0px -45% 0px" }}
-      className="relative flex flex-col gap-1 pl-12"
+    <div
+      className={cn(
+        "rounded-2xl border p-6 backdrop-blur-md transition-all duration-300",
+        align === "right" ? "text-left md:text-right" : "text-left",
+        active
+          ? "border-amber/40 bg-white/[0.07] shadow-lg shadow-black/20"
+          : "border-white/10 bg-white/[0.03]"
+      )}
     >
-      {/* Dot always sits on the same rail its own text block hangs off
-          of — a single left-hand column at every breakpoint, so there's
-          no left/right math to ever drift out of alignment. */}
-      <span className="absolute left-4 top-1.5 -translate-x-1/2">
-        <span className="relative flex h-3.5 w-3.5">
-          {active && (
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber opacity-60" />
-          )}
-          <span
-            className={cn(
-              "relative inline-flex h-3.5 w-3.5 rounded-full ring-4 ring-deep-teal transition-all duration-300",
-              active ? "scale-110 bg-amber shadow-[0_0_16px_4px_rgba(245,166,35,0.55)]" : "bg-white/25"
-            )}
-          />
-        </span>
-      </span>
       <p
         className={cn(
           "text-2xl font-black tracking-tight transition-colors duration-300",
@@ -82,20 +71,79 @@ function TimelineItem({ m }: { m: (typeof milestones)[number] }) {
       </p>
       <p
         className={cn(
-          "text-lg font-bold transition-colors duration-300",
-          active ? "text-white" : "text-[#EAF4F3]/55"
+          "mt-1 text-lg font-bold transition-colors duration-300",
+          active ? "text-white" : "text-[#EAF4F3]/60"
         )}
       >
         {m.title}
       </p>
       <p
         className={cn(
-          "text-sm leading-relaxed transition-colors duration-300",
+          "mt-2 text-sm leading-relaxed transition-colors duration-300",
           active ? "text-[#EAF4F3]/75" : "text-[#EAF4F3]/35"
         )}
       >
         {m.desc}
       </p>
+    </div>
+  );
+}
+
+function TimelineRow({
+  m,
+  index,
+}: {
+  m: (typeof milestones)[number];
+  index: number;
+}) {
+  const [active, setActive] = useState(false);
+  const isRight = index % 2 === 1;
+
+  return (
+    <motion.div
+      onViewportEnter={() => setActive(true)}
+      onViewportLeave={() => setActive(false)}
+      // A thin band around vertical center of the screen defines "active" —
+      // whichever milestone currently sits there lights up while the rest
+      // dim (but stay legible), giving the scrollspy effect without
+      // hand-rolled scroll math.
+      viewport={{ once: false, margin: "-45% 0px -45% 0px" }}
+      // Grid guarantees the dot column sits exactly on the shared center
+      // line by construction (two equal 1fr tracks either side of it) —
+      // no absolute-position/translate arithmetic that can drift.
+      className="grid grid-cols-[2rem_1fr] items-center gap-x-5 md:grid-cols-[1fr_2rem_1fr] md:gap-x-8"
+    >
+      {/* left card slot (desktop only) */}
+      <div className="hidden md:block">
+        {!isRight && <MilestoneCard m={m} active={active} align="right" />}
+      </div>
+
+      {/* center dot, shared by both layouts */}
+      <div className="row-start-1 flex h-full justify-center self-stretch md:col-start-2">
+        <span className="relative flex h-3.5 w-3.5 shrink-0">
+          {active && (
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber opacity-60" />
+          )}
+          <span
+            className={cn(
+              "relative inline-flex h-3.5 w-3.5 rounded-full ring-4 ring-deep-teal transition-all duration-300",
+              active
+                ? "scale-110 bg-amber shadow-[0_0_16px_4px_rgba(245,166,35,0.55)]"
+                : "bg-white/25"
+            )}
+          />
+        </span>
+      </div>
+
+      {/* mobile: single card, always to the right of the dot */}
+      <div className="md:hidden">
+        <MilestoneCard m={m} active={active} align="left" />
+      </div>
+
+      {/* right card slot (desktop only) */}
+      <div className="hidden md:block">
+        {isRight && <MilestoneCard m={m} active={active} align="left" />}
+      </div>
     </motion.div>
   );
 }
@@ -113,7 +161,7 @@ export function AboutTimeline() {
       <div className="circuit-grid absolute inset-0 opacity-[0.12]" />
       <div className="pointer-events-none absolute right-0 top-1/3 h-[26rem] w-[26rem] rounded-full bg-amber/[0.06] blur-[140px]" />
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-bold uppercase tracking-[0.15em] text-amber">
             Our Journey
@@ -123,21 +171,20 @@ export function AboutTimeline() {
           </h2>
         </div>
 
-        <div className="mx-auto mt-16 max-w-2xl">
-          <div ref={containerRef} className="relative">
-            {/* static rail */}
-            <div className="absolute left-4 top-0 h-full w-px -translate-x-1/2 bg-white/10" />
-            {/* scroll-driven glowing progress beam */}
-            <motion.div
-              style={{ height: beamHeight }}
-              className="absolute left-4 top-0 w-px -translate-x-1/2 bg-amber shadow-[0_0_10px_2px_rgba(245,166,35,0.5)]"
-            />
+        <div ref={containerRef} className="relative mt-16">
+          {/* static rail — centered on this wrapper, which is exactly what
+              the grid's middle column is also centered on. */}
+          <div className="absolute left-4 top-0 h-full w-px -translate-x-1/2 bg-white/10 md:left-1/2" />
+          {/* scroll-driven glowing progress beam */}
+          <motion.div
+            style={{ height: beamHeight }}
+            className="absolute left-4 top-0 w-px -translate-x-1/2 bg-amber shadow-[0_0_10px_2px_rgba(245,166,35,0.5)] md:left-1/2"
+          />
 
-            <div className="flex flex-col gap-14">
-              {milestones.map((m) => (
-                <TimelineItem key={m.year} m={m} />
-              ))}
-            </div>
+          <div className="flex flex-col gap-8 md:gap-4">
+            {milestones.map((m, i) => (
+              <TimelineRow key={m.year} m={m} index={i} />
+            ))}
           </div>
         </div>
       </div>
