@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { TopBar } from "@/components/TopBar";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -11,6 +11,14 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
+});
+
+// Used sparingly (About Hero's technical label + stat units) — monospace
+// reads as "precision/engineering" rather than "AI startup."
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -36,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${jakarta.variable} antialiased bg-off-white text-charcoal`}
+        className={`${jakarta.variable} ${jetbrainsMono.variable} antialiased bg-off-white text-charcoal`}
         suppressHydrationWarning
       >
         <SmoothScroll />
