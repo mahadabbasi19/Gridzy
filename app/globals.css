@@ -60,6 +60,44 @@ html.lenis body {
   scroll-behavior: auto !important;
 }
 
+/* About Hero: slow-drifting ambient glow + fine grain overlay. Purely
+   atmospheric — no literal/figurative shapes, just mood and depth. */
+.hero-atmosphere-a {
+  animation: hero-drift-a 19s ease-in-out infinite;
+}
+.hero-atmosphere-b {
+  animation: hero-drift-b 23s ease-in-out infinite;
+}
+@keyframes hero-drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(3rem, -2rem) scale(1.08);
+  }
+}
+@keyframes hero-drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-2.5rem, 2rem) scale(1.06);
+  }
+}
+.hero-grain {
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-atmosphere-a,
+  .hero-atmosphere-b {
+    animation: none;
+  }
+}
+
 .circuit-grid {
   background-image:
     linear-gradient(rgba(21, 91, 88, 0.35) 1px, transparent 1px),
