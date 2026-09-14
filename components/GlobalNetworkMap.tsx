@@ -22,11 +22,18 @@ const continents = [
   { x0: 300, x1: 365, y0: 148, y1: 190, count: 8 }, // Australia
 ];
 
+// Math.sin() can differ in its last couple of decimal places between the
+// server's and the browser's math library, which was enough to trip a
+// hydration mismatch on these coordinates despite the seed being
+// identical. Rounding to 2 decimals (already far more precision than a
+// 400x240 viewBox needs) makes both passes agree exactly.
+const round2 = (n: number) => Math.round(n * 100) / 100;
+
 const dots = continents.flatMap((c, ci) =>
   Array.from({ length: c.count }, (_, i) => {
     const seed = ci * 100 + i;
-    const x = c.x0 + seeded(seed) * (c.x1 - c.x0);
-    const y = c.y0 + seeded(seed + 0.37) * (c.y1 - c.y0);
+    const x = round2(c.x0 + seeded(seed) * (c.x1 - c.x0));
+    const y = round2(c.y0 + seeded(seed + 0.37) * (c.y1 - c.y0));
     return { x, y };
   })
 );
