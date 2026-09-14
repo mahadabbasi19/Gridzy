@@ -42,15 +42,8 @@ const milestones = [
   },
 ];
 
-function TimelineItem({
-  m,
-  index,
-}: {
-  m: (typeof milestones)[number];
-  index: number;
-}) {
+function TimelineItem({ m }: { m: (typeof milestones)[number] }) {
   const [active, setActive] = useState(false);
-  const isRight = index % 2 === 1;
 
   return (
     <motion.div
@@ -61,26 +54,28 @@ function TimelineItem({
       // dim (but stay legible), giving the scrollspy effect without
       // hand-rolled scroll math.
       viewport={{ once: false, margin: "-45% 0px -45% 0px" }}
-      className={cn(
-        "relative flex flex-col gap-1 pl-12 md:w-1/2 md:pl-0 md:pr-14",
-        isRight ? "md:ml-auto md:pl-14 md:pr-0" : ""
-      )}
+      className="relative flex flex-col gap-1 pl-12"
     >
-      <span
-        className={cn(
-          "absolute left-4 top-1 -translate-x-1/2 flex h-4 w-4 items-center justify-center rounded-full ring-4 ring-[#05070D] transition-all duration-300 md:left-auto",
-          isRight ? "md:-left-2" : "md:-right-2 md:translate-x-1/2",
-          active ? "scale-110 bg-cyan-300 shadow-[0_0_16px_4px_rgba(103,232,249,0.55)]" : "bg-slate-700"
-        )}
-      >
-        {active && (
-          <span className="absolute inset-0 -m-1.5 animate-ping rounded-full border border-cyan-300/60" />
-        )}
+      {/* Dot always sits on the same rail its own text block hangs off
+          of — a single left-hand column at every breakpoint, so there's
+          no left/right math to ever drift out of alignment. */}
+      <span className="absolute left-4 top-1.5 -translate-x-1/2">
+        <span className="relative flex h-3.5 w-3.5">
+          {active && (
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber opacity-60" />
+          )}
+          <span
+            className={cn(
+              "relative inline-flex h-3.5 w-3.5 rounded-full ring-4 ring-deep-teal transition-all duration-300",
+              active ? "scale-110 bg-amber shadow-[0_0_16px_4px_rgba(245,166,35,0.55)]" : "bg-white/25"
+            )}
+          />
+        </span>
       </span>
       <p
         className={cn(
           "text-2xl font-black tracking-tight transition-colors duration-300",
-          active ? "text-cyan-300" : "text-slate-500"
+          active ? "text-amber" : "text-[#EAF4F3]/45"
         )}
       >
         {m.year}
@@ -88,7 +83,7 @@ function TimelineItem({
       <p
         className={cn(
           "text-lg font-bold transition-colors duration-300",
-          active ? "text-white" : "text-slate-300"
+          active ? "text-white" : "text-[#EAF4F3]/55"
         )}
       >
         {m.title}
@@ -96,7 +91,7 @@ function TimelineItem({
       <p
         className={cn(
           "text-sm leading-relaxed transition-colors duration-300",
-          active ? "text-slate-300" : "text-slate-500"
+          active ? "text-[#EAF4F3]/75" : "text-[#EAF4F3]/35"
         )}
       >
         {m.desc}
@@ -114,12 +109,13 @@ export function AboutTimeline() {
   const beamHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section className="relative overflow-hidden bg-[#05070D] py-24">
-      <div className="pointer-events-none absolute right-0 top-1/3 h-[26rem] w-[26rem] rounded-full bg-violet-500/[0.08] blur-[140px]" />
+    <section className="relative overflow-hidden bg-deep-teal py-24">
+      <div className="circuit-grid absolute inset-0 opacity-[0.12]" />
+      <div className="pointer-events-none absolute right-0 top-1/3 h-[26rem] w-[26rem] rounded-full bg-amber/[0.06] blur-[140px]" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.15em] text-cyan-300">
+          <p className="text-sm font-bold uppercase tracking-[0.15em] text-amber">
             Our Journey
           </p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
@@ -127,19 +123,21 @@ export function AboutTimeline() {
           </h2>
         </div>
 
-        <div ref={containerRef} className="relative mt-16">
-          {/* static rail */}
-          <div className="absolute left-4 top-0 h-full w-px bg-slate-800 md:left-1/2" />
-          {/* scroll-driven glowing progress beam */}
-          <motion.div
-            style={{ height: beamHeight }}
-            className="absolute left-4 top-0 w-px bg-gradient-to-b from-cyan-400 via-amber-400 to-indigo-400 shadow-[0_0_10px_2px_rgba(103,232,249,0.4)] md:left-1/2"
-          />
+        <div className="mx-auto mt-16 max-w-2xl">
+          <div ref={containerRef} className="relative">
+            {/* static rail */}
+            <div className="absolute left-4 top-0 h-full w-px -translate-x-1/2 bg-white/10" />
+            {/* scroll-driven glowing progress beam */}
+            <motion.div
+              style={{ height: beamHeight }}
+              className="absolute left-4 top-0 w-px -translate-x-1/2 bg-amber shadow-[0_0_10px_2px_rgba(245,166,35,0.5)]"
+            />
 
-          <div className="flex flex-col gap-14">
-            {milestones.map((m, i) => (
-              <TimelineItem key={m.year} m={m} index={i} />
-            ))}
+            <div className="flex flex-col gap-14">
+              {milestones.map((m) => (
+                <TimelineItem key={m.year} m={m} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
