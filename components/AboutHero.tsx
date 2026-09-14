@@ -1,16 +1,10 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/Button";
-
-const stats = [
-  { target: 99.9, decimals: 1, suffix: "%", label: "Client Satisfaction" },
-  { target: 50, decimals: 0, suffix: "+", label: "Platforms Built" },
-  { target: 10, decimals: 0, suffix: "x", label: "Performance Boost" },
-];
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -22,60 +16,6 @@ function usePrefersReducedMotion() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
   return reduced;
-}
-
-// Lightweight count-up — no extra dependency, settles instantly at the
-// final value (no animation) when the viewer has reduced motion on.
-function useCountUp(target: number, active: boolean, reducedMotion: boolean) {
-  const [value, setValue] = useState(reducedMotion ? target : 0);
-  const started = useRef(false);
-
-  useEffect(() => {
-    if (!active || started.current) return;
-    started.current = true;
-    if (reducedMotion) {
-      setValue(target);
-      return;
-    }
-    const duration = 1400;
-    const start = performance.now();
-    let raf: number;
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(target * eased);
-      if (progress < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [active, target, reducedMotion]);
-
-  return value;
-}
-
-function StatReadout({
-  stat,
-  first,
-  active,
-  reducedMotion,
-}: {
-  stat: (typeof stats)[number];
-  first: boolean;
-  active: boolean;
-  reducedMotion: boolean;
-}) {
-  const value = useCountUp(stat.target, active, reducedMotion);
-  return (
-    <div className={first ? "" : "border-l border-[#EAF4F3]/10 pl-8"}>
-      <span className="font-mono text-2xl font-semibold tabular-nums text-[#EAF4F3] sm:text-3xl">
-        {value.toFixed(stat.decimals)}
-        {stat.suffix}
-      </span>
-      <span className="ml-2.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[#EAF4F3]/40">
-        {stat.label}
-      </span>
-    </div>
-  );
 }
 
 // Thin L-shaped corner brackets, like a design tool's selection handles —
@@ -105,8 +45,6 @@ function CropMarks({ drawn }: { drawn: boolean }) {
 
 export function AboutHero() {
   const reducedMotion = usePrefersReducedMotion();
-  const statsRef = useRef<HTMLDivElement>(null);
-  const statsInView = useInView(statsRef, { once: true, amount: 0.6 });
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -158,7 +96,7 @@ export function AboutHero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: loaded ? 1 : 0, y: loaded ? 0 : 12 }}
             transition={{ duration: 0.6, delay: 0.35 }}
-            className="mt-10 flex items-start gap-4 sm:mt-12 sm:gap-5 lg:ml-[32%]"
+            className="mt-10 flex items-start gap-4 pb-2 sm:mt-12 sm:gap-5 lg:ml-[32%]"
           >
             <span className="mt-1.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-amber/40 font-mono text-[10px] text-amber/70">
               01
@@ -178,22 +116,6 @@ export function AboutHero() {
               </div>
             </div>
           </motion.div>
-
-          {/* Single inline technical readout — no cards, no shadows */}
-          <div
-            ref={statsRef}
-            className="mt-16 flex flex-wrap items-baseline gap-y-5 border-t border-[#EAF4F3]/10 pt-7 sm:gap-x-2"
-          >
-            {stats.map((s, i) => (
-              <StatReadout
-                key={s.label}
-                stat={s}
-                first={i === 0}
-                active={statsInView}
-                reducedMotion={reducedMotion}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </section>
