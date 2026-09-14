@@ -1,7 +1,7 @@
+import { AboutCTA } from "./AboutCTA";
 import { AboutPillars } from "./AboutPillars";
 import { AboutTimeline } from "./AboutTimeline";
 import { AboutValues } from "./AboutValues";
-import { CTA } from "./CTA";
 
 export function AboutPageContent() {
   return (
@@ -9,7 +9,7 @@ export function AboutPageContent() {
       <AboutPillars />
       <AboutTimeline />
       <AboutValues />
-      <CTA />
+      <AboutCTA />
     </>
   );
 }
