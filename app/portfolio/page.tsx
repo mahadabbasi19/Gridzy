@@ -6,7 +6,7 @@ import { CTA } from "@/components/CTA";
 export const metadata: Metadata = {
   title: "Portfolio | Gridzy — The Tech People",
   description:
-    "Explore Gridzy's case studies across websites, mobile apps, AI software, graphics, and logo design.",
+    "Real, live client products Gridzy has built and shipped — click through to see them running in production.",
 };
 
 export default function PortfolioPage() {
@@ -15,13 +15,9 @@ export default function PortfolioPage() {
       <PageHero
         eyebrow="Selected Work"
         title="Proof, Not Promises"
-        subtitle="A closer look at the products, brands, and platforms we've shipped — with the measurable results behind each one."
+        subtitle="Live products we've shipped for our partners — every link below goes straight to the real, running site."
       />
-      <section className="bg-off-white py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <Portfolio />
-        </div>
-      </section>
+      <Portfolio />
       <CTA />
     </>
   );
