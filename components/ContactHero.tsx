@@ -75,10 +75,6 @@ export function ContactHero({
       <div className="pointer-events-none absolute -left-24 top-0 h-80 w-80 rounded-full bg-primary-teal/25 blur-[120px]" />
       <div className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-amber/10 blur-[120px]" />
 
-      {/* floating glass panels — decorative only, no literal iconography */}
-      <div className="hero-float-a pointer-events-none absolute right-[8%] top-16 hidden h-24 w-24 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md sm:block lg:right-[14%]" />
-      <div className="hero-float-b pointer-events-none absolute left-[6%] bottom-16 hidden h-16 w-16 rounded-xl border border-amber/20 bg-amber/[0.05] backdrop-blur-md sm:block" />
-
       <motion.div
         variants={container}
         initial="hidden"
@@ -145,18 +141,17 @@ export function ContactHero({
         {/* micro-metrics footer */}
         <motion.div
           variants={item}
-          className="mt-12 flex w-full max-w-2xl flex-wrap items-center justify-center gap-x-8 gap-y-4 divide-x divide-white/10 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5 backdrop-blur-md sm:flex-nowrap"
+          className="mt-12 flex w-fit max-w-full flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5 backdrop-blur-md sm:flex-row sm:flex-wrap sm:justify-center sm:gap-y-3"
         >
           {metrics.map((m, i) => (
-            <div
-              key={m.label}
-              className={cn(
-                "flex items-center gap-2 text-xs font-medium text-[#EAF4F3]/70 sm:text-sm",
-                i > 0 && "sm:pl-8"
+            <div key={m.label} className="flex items-center">
+              {i > 0 && (
+                <span className="mx-6 hidden h-4 w-px shrink-0 bg-white/10 sm:block" />
               )}
-            >
-              <m.icon size={15} className="shrink-0 text-amber" />
-              <span className="whitespace-nowrap">{m.label}</span>
+              <div className="flex items-center gap-2 text-xs font-medium text-[#EAF4F3]/70 sm:text-sm">
+                <m.icon size={15} className="shrink-0 text-amber" />
+                <span className="whitespace-nowrap">{m.label}</span>
+              </div>
             </div>
           ))}
         </motion.div>

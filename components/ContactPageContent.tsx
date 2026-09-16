@@ -17,9 +17,7 @@ import { services } from "@/lib/data";
 import {
   ADDRESS_FULL,
   ADDRESS_SHORT,
-  EMAIL_INFO,
   EMAIL_SALES,
-  EMAIL_SUPPORT,
   MAP_DIRECTIONS_URL,
   MAP_EMBED_URL,
   PHONE_DISPLAY,
@@ -32,21 +30,13 @@ import { ContactHero } from "./ContactHero";
 // drift out of sync with the actual services offered.
 const serviceChoices = services.map((s) => s.title);
 
-const budgetChoices = [
-  "Under $5,000",
-  "$5,000 - $15,000",
-  "$15,000 - $50,000",
-  "$50,000+",
-];
-
-const steps = ["Service Needed", "Budget Range", "Project Details", "Contact Info"];
+const steps = ["Service Needed", "Project Details", "Contact Info"];
 
 export function ContactPageContent() {
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     service: "",
-    budget: "",
     details: "",
     name: "",
     email: "",
@@ -55,9 +45,8 @@ export function ContactPageContent() {
 
   const canProceed =
     (step === 0 && form.service) ||
-    (step === 1 && form.budget) ||
-    (step === 2 && form.details.trim().length > 0) ||
-    step === 3;
+    (step === 1 && form.details.trim().length > 0) ||
+    step === 2;
 
   return (
     <>
@@ -99,13 +88,7 @@ export function ContactPageContent() {
                 <p className="text-sm font-bold text-charcoal">Email Us</p>
                 <div className="flex flex-col gap-0.5 text-sm text-charcoal/65">
                   <a href={`mailto:${EMAIL_SALES}`} className="hover:text-primary-teal">
-                    {EMAIL_SALES} <span className="text-charcoal/40">— New projects</span>
-                  </a>
-                  <a href={`mailto:${EMAIL_INFO}`} className="hover:text-primary-teal">
-                    {EMAIL_INFO} <span className="text-charcoal/40">— General inquiries</span>
-                  </a>
-                  <a href={`mailto:${EMAIL_SUPPORT}`} className="hover:text-primary-teal">
-                    {EMAIL_SUPPORT} <span className="text-charcoal/40">— Existing clients</span>
+                    {EMAIL_SALES}
                   </a>
                 </div>
               </div>
@@ -262,26 +245,6 @@ export function ContactPageContent() {
                 )}
 
                 {step === 1 && (
-                  <div className="mt-6 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                    {budgetChoices.map((b) => (
-                      <button
-                        key={b}
-                        type="button"
-                        onClick={() => setForm({ ...form, budget: b })}
-                        className={cn(
-                          "rounded-xl border px-4 py-3 text-left text-sm font-semibold transition-colors",
-                          form.budget === b
-                            ? "border-primary-teal bg-primary-teal text-white"
-                            : "border-border-teal bg-off-white text-charcoal hover:border-primary-teal"
-                        )}
-                      >
-                        {b}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {step === 2 && (
                   <div className="mt-6">
                     <textarea
                       rows={6}
@@ -293,7 +256,7 @@ export function ContactPageContent() {
                   </div>
                 )}
 
-                {step === 3 && (
+                {step === 2 && (
                   <div className="mt-6 grid grid-cols-1 gap-3.5">
                     <input
                       type="text"
