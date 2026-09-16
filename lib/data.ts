@@ -230,7 +230,14 @@ export interface RecentWorkItem {
   title: string;
   url: string;
   image: string;
+  // What actually shows on the card as badges — the client-facing copy.
   tags: string[];
+  // Canonical buckets this project belongs to, used to drive the
+  // /portfolio filter pills. Kept separate from `tags` because tags are
+  // free-text per project (e.g. "Custom Software Development (HRM)",
+  // "Custom CRM") and wouldn't reliably group under one filter as
+  // exact strings — categories are the fixed, shared vocabulary.
+  categories: string[];
 }
 
 // Real, live client projects — each card links straight out to the
@@ -242,23 +249,34 @@ export const recentWork: RecentWorkItem[] = [
     url: "https://www.sstrack.io/",
     image: "/portfolio/sstrack.jpg",
     tags: ["Website Development", "Custom Software Development (HRM)"],
-  },
-  {
-    title: "B&B Traders",
-    url: "https://bbtraders.info/",
-    image: "/portfolio/bbtraders.jpg",
-    tags: ["Website Development", "Custom Software Development", "Mobile App Development"],
+    categories: ["Website Development", "Custom Software"],
   },
   {
     title: "CodeNova AI",
     url: "https://codenovaa.com/",
     image: "/portfolio/codenova.jpg",
     tags: ["Website Development", "Desktop Application"],
+    categories: ["Website Development", "Desktop Application"],
+  },
+  {
+    title: "B&B Traders",
+    url: "https://bbtraders.info/",
+    image: "/portfolio/bbtraders.jpg",
+    tags: ["Website Development", "Custom Software Development", "Mobile App Development"],
+    categories: ["Website Development", "Custom Software", "Mobile App Development"],
+  },
+  {
+    title: "Osteoneks",
+    url: "http://osteoneks.com/",
+    image: "/portfolio/osteoneks.jpg",
+    tags: ["Website Development", "Custom CRM"],
+    categories: ["Website Development", "Custom Software"],
   },
   {
     title: "Yousfis Europe",
     url: "https://www.yousfis.com/",
     image: "/portfolio/yousfis.jpg",
     tags: ["Website Development"],
+    categories: ["Website Development"],
   },
 ];
