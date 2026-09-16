@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/PageHero";
 import { ContactPageContent } from "@/components/ContactPageContent";
 
 export const metadata: Metadata = {
@@ -9,14 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return (
-    <>
-      <PageHero
-        eyebrow="Contact Us"
-        title="Start Your Project With Gridzy"
-        subtitle="Tell us what you're building — we'll come back with a clear plan, realistic timeline, and the right team to make it happen."
-      />
-      <ContactPageContent />
-    </>
-  );
+  return <ContactPageContent />;
 }

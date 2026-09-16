@@ -26,6 +26,7 @@ import {
   PHONE_WHATSAPP_URL,
 } from "@/lib/contact";
 import { Button } from "./ui/Button";
+import { ContactHero } from "./ContactHero";
 
 // Sourced from the shared services catalog so this dropdown can never
 // drift out of sync with the actual services offered.
@@ -59,7 +60,12 @@ export function ContactPageContent() {
     step === 3;
 
   return (
-    <section className="bg-off-white py-24">
+    <>
+      <ContactHero
+        selected={form.service || null}
+        onSelect={(title) => setForm((f) => ({ ...f, service: title }))}
+      />
+      <section id="contact-form" className="bg-off-white py-24">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 lg:grid-cols-[0.85fr_1.15fr]">
         {/* Left: contact info */}
         <div>
@@ -350,6 +356,7 @@ export function ContactPageContent() {
           )}
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 }
