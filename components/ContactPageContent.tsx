@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
-  Calendar,
   Check,
   Clock,
   Mail,
@@ -17,6 +16,7 @@ import { services } from "@/lib/data";
 import {
   ADDRESS_FULL,
   ADDRESS_SHORT,
+  CONTACT_FORM_ENDPOINT,
   EMAIL_SALES,
   MAP_DIRECTIONS_URL,
   MAP_EMBED_URL,
@@ -35,18 +35,46 @@ const steps = ["Service Needed", "Project Details", "Contact Info"];
 export function ContactPageContent() {
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState({
     service: "",
     details: "",
     name: "",
     email: "",
     company: "",
+    website: "", // honeypot — real users never fill this in
   });
 
   const canProceed =
     (step === 0 && form.service) ||
     (step === 1 && form.details.trim().length > 0) ||
     step === 2;
+
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch(CONTACT_FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Something went wrong. Please try again.");
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again or email us directly."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -139,23 +167,6 @@ export function ContactPageContent() {
               <MapPin size={13} className="text-amber" /> Get Directions
             </span>
           </a>
-
-          <div className="mt-8 flex items-center gap-4 rounded-2xl border border-border-teal bg-soft-teal p-5">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber text-charcoal">
-              <Calendar size={20} />
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-bold text-charcoal">
-                Book a 15-Min Strategy Call
-              </p>
-              <p className="text-xs text-charcoal/60">
-                Pick a time that works and we&apos;ll come prepared.
-              </p>
-            </div>
-            <Button variant="teal-outline" size="sm">
-              Schedule
-            </Button>
-          </div>
         </div>
 
         {/* Right: multi-step form */}
@@ -279,6 +290,17 @@ export function ContactPageContent() {
                       onChange={(e) => setForm({ ...form, company: e.target.value })}
                       className="rounded-xl border border-border-teal bg-off-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary-teal"
                     />
+                    {/* Honeypot — invisible to real users, tempting to bots */}
+                    <input
+                      type="text"
+                      name="website"
+                      value={form.website}
+                      onChange={(e) => setForm({ ...form, website: e.target.value })}
+                      className="hidden"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                    />
                   </div>
                 )}
               </motion.div>
@@ -286,36 +308,44 @@ export function ContactPageContent() {
           </AnimatePresence>
 
           {!submitted && (
-            <div className="mt-8 flex items-center justify-between gap-3">
-              <Button
-                variant="teal-outline"
-                size="sm"
-                disabled={step === 0}
-                onClick={() => setStep((s) => Math.max(0, s - 1))}
-                className={cn(step === 0 && "invisible")}
-              >
-                <ArrowLeft size={15} /> Back
-              </Button>
-              {step < steps.length - 1 ? (
+            <>
+              <div className="mt-8 flex items-center justify-between gap-3">
                 <Button
+                  variant="teal-outline"
                   size="sm"
-                  disabled={!canProceed}
-                  onClick={() => setStep((s) => Math.min(steps.length - 1, s + 1))}
-                  className={cn(!canProceed && "opacity-40 pointer-events-none")}
+                  disabled={step === 0}
+                  onClick={() => setStep((s) => Math.max(0, s - 1))}
+                  className={cn(step === 0 && "invisible")}
                 >
-                  Next <ArrowRight size={15} />
+                  <ArrowLeft size={15} /> Back
                 </Button>
-              ) : (
-                <Button
-                  size="sm"
-                  disabled={!form.name || !form.email}
-                  onClick={() => setSubmitted(true)}
-                  className={cn((!form.name || !form.email) && "opacity-40 pointer-events-none")}
-                >
-                  Submit Inquiry <ArrowRight size={15} />
-                </Button>
+                {step < steps.length - 1 ? (
+                  <Button
+                    size="sm"
+                    disabled={!canProceed}
+                    onClick={() => setStep((s) => Math.min(steps.length - 1, s + 1))}
+                    className={cn(!canProceed && "opacity-40 pointer-events-none")}
+                  >
+                    Next <ArrowRight size={15} />
+                  </Button>
+                ) : (
+                  <Button
+                    size="sm"
+                    disabled={!form.name || !form.email || submitting}
+                    onClick={handleSubmit}
+                    className={cn(
+                      (!form.name || !form.email || submitting) && "opacity-40 pointer-events-none"
+                    )}
+                  >
+                    {submitting ? "Sending..." : "Submit Inquiry"}
+                    <ArrowRight size={15} />
+                  </Button>
+                )}
+              </div>
+              {submitError && (
+                <p className="mt-3 text-right text-sm text-red-600">{submitError}</p>
               )}
-            </div>
+            </>
           )}
         </div>
       </div>

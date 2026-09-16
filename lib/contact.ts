@@ -5,6 +5,15 @@
 export const EMAIL_INFO = "info@gridzy.dev";
 export const EMAIL_SALES = "sales@gridzy.dev";
 export const EMAIL_SUPPORT = "support@gridzy.dev";
+// Where the contact form's inquiry submissions are delivered — not
+// shown anywhere on the page, just the mail handler's destination.
+export const EMAIL_RESPONSE = "response@gridzy.dev";
+
+// Server-side endpoint that actually sends the inquiry email. The site
+// is a static export (no Node server at runtime), so this is a plain
+// PHP script — see public/contact-handler.php — that next build copies
+// into the export verbatim and cPanel's Apache/PHP serves directly.
+export const CONTACT_FORM_ENDPOINT = "/contact-handler.php";
 
 // Single source of truth for the phone number shown across the site.
 // Every phone link below opens a WhatsApp chat rather than a bare tel:
