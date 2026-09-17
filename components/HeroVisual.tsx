@@ -15,9 +15,23 @@ import {
   TrendingUp,
   Wifi,
 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { HeroSearchBar } from "./HeroSearchBar";
+
+const TILE_HIGHLIGHT_MS = 500;
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const onChange = () => setReduced(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return reduced;
+}
 
 // Quick-access tiles link straight to their matching service detail page.
 const appTiles = [
@@ -40,6 +54,18 @@ const chartPoints = "0,38 20,30 40,34 60,18 80,22 100,10 120,14 140,4 160,8";
 export function HeroVisual() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+  const reducedMotion = usePrefersReducedMotion();
+  const [activeTile, setActiveTile] = useState(0);
+
+  // Cycle a highlight through the quick-access tiles, one at a time, to
+  // signal they're clickable — pauses entirely under reduced-motion.
+  useEffect(() => {
+    if (reducedMotion) return;
+    const id = setInterval(() => {
+      setActiveTile((i) => (i + 1) % appTiles.length);
+    }, TILE_HIGHLIGHT_MS);
+    return () => clearInterval(id);
+  }, [reducedMotion]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
@@ -222,18 +248,43 @@ export function HeroVisual() {
               </div>
 
               <div className="relative z-10 mt-3 grid grid-cols-2 gap-2">
-                {appTiles.map((t) => (
-                  <Link
-                    key={t.label}
-                    href={`/services/${t.slug}`}
-                    className="flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/5 py-3 transition-transform active:scale-95 hover:border-amber/40 hover:bg-white/10"
-                  >
-                    <t.icon size={16} className="text-primary-teal" strokeWidth={2} />
-                    <span className="text-[8px] font-medium text-white/50">
-                      {t.label}
-                    </span>
-                  </Link>
-                ))}
+                {appTiles.map((t, i) => {
+                  // Auto-cycled clickability cue, distinct from the
+                  // separate :hover/:active state below — both can be
+                  // true at once (a real hover just adds to whichever
+                  // tile happens to be auto-highlighted).
+                  const isHighlighted = !reducedMotion && activeTile === i;
+                  return (
+                    <Link
+                      key={t.label}
+                      href={`/services/${t.slug}`}
+                      aria-label={`${t.label} services`}
+                      className={cn(
+                        "flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border py-3 transition-all duration-300 active:scale-95 hover:border-amber/40 hover:bg-white/10",
+                        isHighlighted
+                          ? "border-amber/60 bg-amber/10 shadow-[0_0_14px_1px_rgba(245,166,35,0.4)]"
+                          : "border-white/10 bg-white/5"
+                      )}
+                    >
+                      <t.icon
+                        size={16}
+                        strokeWidth={2}
+                        className={cn(
+                          "transition-transform duration-300",
+                          isHighlighted ? "scale-110 text-amber" : "text-primary-teal"
+                        )}
+                      />
+                      <span
+                        className={cn(
+                          "text-[8px] font-medium transition-colors duration-300",
+                          isHighlighted ? "text-white/80" : "text-white/50"
+                        )}
+                      >
+                        {t.label}
+                      </span>
+                    </Link>
+                  );
+                })}
               </div>
 
               <div className="mt-3 flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5">

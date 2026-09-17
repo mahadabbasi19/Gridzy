@@ -61,6 +61,23 @@ html.lenis body {
   scroll-behavior: auto !important;
 }
 
+/* Hero search bar: blinking text-cursor next to the idle placeholder,
+   mimicking a real caret waiting for input. step-end gives a crisp
+   on/off blink rather than a fade. */
+@keyframes blink-cursor {
+  50% {
+    opacity: 0;
+  }
+}
+.blink-cursor {
+  animation: blink-cursor 0.9s step-end infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .blink-cursor {
+    animation: none;
+  }
+}
+
 /* About Hero ("Precision Draft"): flat deep-teal ground, fine grain
    only — no gradients, no glow, nothing figurative. */
 .hero-grain {

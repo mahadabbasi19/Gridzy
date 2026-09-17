@@ -112,6 +112,13 @@ export function HeroSearchBar() {
                 className="pointer-events-none absolute inset-0 flex items-center truncate text-[10px] text-white/35"
               >
                 {placeholders[placeholderIndex]}
+                {/* Blinking caret — only while idle (unfocused, empty),
+                    since the real input caret takes over once focused. */}
+                {!focused && (
+                  <span aria-hidden className="blink-cursor ml-0.5 text-amber/70">
+                    |
+                  </span>
+                )}
               </motion.span>
             </AnimatePresence>
           )}
