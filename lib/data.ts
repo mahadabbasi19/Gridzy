@@ -279,4 +279,11 @@ export const recentWork: RecentWorkItem[] = [
     tags: ["Website Development"],
     categories: ["Website Development"],
   },
+  {
+    title: "ByteBuz",
+    url: "https://bytebuz.com/",
+    image: "/portfolio/bytebuz.jpg",
+    tags: ["Website Development"],
+    categories: ["Website Development"],
+  },
 ];
