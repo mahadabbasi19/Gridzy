@@ -59,10 +59,7 @@ export function AboutValues() {
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-soft-teal text-primary-teal transition-colors group-hover:bg-primary-teal group-hover:text-white">
                     <v.icon size={20} />
                   </div>
-                  <span className="mt-5 w-fit rounded-full border border-border-teal bg-soft-teal px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-primary-teal/60">
-                    0{i + 1}
-                  </span>
-                  <h3 className="mt-3 text-lg font-bold text-charcoal">{v.title}</h3>
+                  <h3 className="mt-5 text-lg font-bold text-charcoal">{v.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-charcoal/65">
                     {v.desc}
                   </p>
