@@ -102,25 +102,33 @@ export function HeroSearchBar() {
             className="relative z-10 w-full bg-transparent text-[10px] font-medium text-white outline-none"
           />
           {!query && (
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={placeholderIndex}
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.3 }}
-                className="pointer-events-none absolute inset-0 flex items-center truncate text-[10px] text-white/35"
-              >
-                {placeholders[placeholderIndex]}
-                {/* Blinking caret — only while idle (unfocused, empty),
-                    since the real input caret takes over once focused. */}
-                {!focused && (
-                  <span aria-hidden className="blink-cursor ml-0.5 text-amber/70">
-                    |
-                  </span>
-                )}
-              </motion.span>
-            </AnimatePresence>
+            <div className="pointer-events-none absolute inset-0 flex items-center text-[10px] text-white/35">
+              {/* Own truncating span so a long placeholder never eats
+                  the cursor's space — it used to share one `truncate`
+                  container with the cursor, so on longer strings the
+                  cursor was simply clipped off-screen and never shown. */}
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={placeholderIndex}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.3 }}
+                  className="min-w-0 flex-1 truncate"
+                >
+                  {placeholders[placeholderIndex]}
+                </motion.span>
+              </AnimatePresence>
+              {/* Blinking caret — only while idle (unfocused, empty),
+                  since the real input caret takes over once focused.
+                  shrink-0 + outside the truncated text so it's always
+                  visible regardless of placeholder length. */}
+              {!focused && (
+                <span aria-hidden className="blink-cursor ml-0.5 shrink-0 text-amber/70">
+                  |
+                </span>
+              )}
+            </div>
           )}
         </div>
         {query && (

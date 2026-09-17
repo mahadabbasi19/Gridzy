@@ -19,7 +19,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { HeroSearchBar } from "./HeroSearchBar";
 
-const TILE_HIGHLIGHT_MS = 500;
+const TILE_HIGHLIGHT_MS = 1100;
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
