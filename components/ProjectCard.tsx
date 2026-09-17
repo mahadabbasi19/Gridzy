@@ -20,7 +20,7 @@ export function ProjectCard({ project, index }: { project: RecentWorkItem; index
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.4, delay: (index % 4) * 0.08 }}
+      transition={{ duration: 0.4, delay: (index % 3) * 0.08 }}
       className="flex"
     >
       <TiltCard className="h-full w-full">

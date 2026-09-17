@@ -28,7 +28,7 @@ export function Portfolio() {
   );
 
   return (
-    <section className="bg-off-white py-24">
+    <section id="portfolio-grid" className="scroll-mt-24 bg-off-white py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-bold uppercase tracking-[0.15em] text-primary-teal">
@@ -59,7 +59,7 @@ export function Portfolio() {
           ))}
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
               <ProjectCard key={project.url} project={project} index={i} />

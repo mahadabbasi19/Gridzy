@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/PageHero";
+import { PortfolioHero } from "@/components/PortfolioHero";
 import { Portfolio } from "@/components/Portfolio";
 import { CTA } from "@/components/CTA";
 
@@ -12,11 +12,7 @@ export const metadata: Metadata = {
 export default function PortfolioPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Selected Work"
-        title="Proof, Not Promises"
-        subtitle="Live products we've shipped for our partners — every link below goes straight to the real, running site."
-      />
+      <PortfolioHero />
       <Portfolio />
       <CTA />
     </>
