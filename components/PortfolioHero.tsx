@@ -115,7 +115,7 @@ export function PortfolioHero() {
             className="mt-10 flex items-start gap-4 sm:mt-12 sm:gap-5"
           >
             <span className="mt-1.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-amber/40 font-mono text-[10px] text-amber/70">
-              01
+              02
             </span>
             <p className="max-w-sm text-sm leading-relaxed text-[#EAF4F3]/65 sm:text-base">
               A closer look at the high-scale platforms, AI engines, and
