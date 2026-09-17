@@ -45,14 +45,14 @@ export function AboutValues() {
           </h2>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
           {values.map((v, i) => (
             <motion.div
               key={v.title}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
+              transition={{ duration: 0.4, delay: (i % 2) * 0.08 }}
             >
               <TiltCard className="h-full">
                 <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border-teal bg-white p-7 transition-all duration-300 hover:scale-[1.02] hover:border-primary-teal/40 hover:shadow-xl hover:shadow-charcoal/5">
