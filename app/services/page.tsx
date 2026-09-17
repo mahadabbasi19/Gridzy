@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/PageHero";
+import { ServicesHero } from "@/components/ServicesHero";
 import { ServicesPageContent } from "@/components/ServicesPageContent";
-import { CTA } from "@/components/CTA";
+import { ServicesTechStack } from "@/components/ServicesTechStack";
+import { ServicesWorkflow } from "@/components/ServicesWorkflow";
+import { ServicesCTA } from "@/components/ServicesCTA";
 
 export const metadata: Metadata = {
   title: "Our Services | Gridzy — The Tech People",
@@ -12,13 +14,11 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Our Capabilities"
-        title="End-to-End Technology & Creative Capabilities"
-        subtitle="Seven disciplines, one accountable team. Explore how Gridzy combines engineering, design, and strategy to move your business forward."
-      />
+      <ServicesHero />
       <ServicesPageContent />
-      <CTA />
+      <ServicesTechStack />
+      <ServicesWorkflow />
+      <ServicesCTA />
     </>
   );
 }

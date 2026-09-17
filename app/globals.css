@@ -61,6 +61,64 @@ html.lenis body {
   scroll-behavior: auto !important;
 }
 
+/* Services Hero: pulsing badge glow + gently floating capability chips */
+@keyframes hero-badge-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+}
+.hero-badge-pulse {
+  animation: hero-badge-pulse 2.4s ease-out infinite;
+}
+@keyframes hero-chip-float-0 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes hero-chip-float-1 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+@keyframes hero-chip-float-2 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.hero-chip-float-0 {
+  animation: hero-chip-float-0 4.5s ease-in-out infinite;
+}
+.hero-chip-float-1 {
+  animation: hero-chip-float-1 5.2s ease-in-out infinite;
+}
+.hero-chip-float-2 {
+  animation: hero-chip-float-2 3.9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-badge-pulse,
+  .hero-chip-float-0,
+  .hero-chip-float-1,
+  .hero-chip-float-2 {
+    animation: none;
+  }
+}
+
 /* About Hero ("Precision Draft"): flat deep-teal ground, fine grain
    only — no gradients, no glow, nothing figurative. */
 .hero-grain {
@@ -89,6 +147,23 @@ html.lenis body {
   }
   to {
     transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Reverse direction, for the Services tech-stack section's
+   dual-directional marquee (second row scrolls the opposite way). */
+.marquee-track-reverse {
+  animation: marquee-reverse 30s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(-50%, 0, 0);
+}
+@keyframes marquee-reverse {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
   }
 }
 
