@@ -103,10 +103,14 @@ export function HeroSearchBar() {
           />
           {!query && (
             <div className="pointer-events-none absolute inset-0 flex items-center text-[10px] text-white/35">
-              {/* Own truncating span so a long placeholder never eats
-                  the cursor's space — it used to share one `truncate`
-                  container with the cursor, so on longer strings the
-                  cursor was simply clipped off-screen and never shown. */}
+              {/* flex-1 on the text span was the bug: it stretched to
+                  fill the whole row, shoving the cursor sibling all the
+                  way to the far-right edge regardless of how short the
+                  text was — looked like an RTL caret, not a typing one.
+                  Dropped flex-1 so the row sizes to content (LTR: text,
+                  then the cursor immediately after it), and cap the text
+                  at 85% width so it still truncates instead of pushing
+                  the cursor off the visible area on the longest string. */}
               <AnimatePresence mode="wait">
                 <motion.span
                   key={placeholderIndex}
@@ -114,15 +118,13 @@ export function HeroSearchBar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
                   transition={{ duration: 0.3 }}
-                  className="min-w-0 flex-1 truncate"
+                  className="max-w-[85%] truncate"
                 >
                   {placeholders[placeholderIndex]}
                 </motion.span>
               </AnimatePresence>
               {/* Blinking caret — only while idle (unfocused, empty),
-                  since the real input caret takes over once focused.
-                  shrink-0 + outside the truncated text so it's always
-                  visible regardless of placeholder length. */}
+                  since the real input caret takes over once focused. */}
               {!focused && (
                 <span aria-hidden className="blink-cursor ml-0.5 shrink-0 text-amber/70">
                   |
