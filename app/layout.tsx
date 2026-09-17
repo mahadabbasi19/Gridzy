@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { MetaPixel } from "@/components/MetaPixel";
 import { TopBar } from "@/components/TopBar";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -47,6 +48,7 @@ export default function RootLayout({
         className={`${jakarta.variable} ${jetbrainsMono.variable} antialiased bg-off-white text-charcoal`}
         suppressHydrationWarning
       >
+        <MetaPixel />
         <SmoothScroll />
         <TopBar />
         <Navbar />
