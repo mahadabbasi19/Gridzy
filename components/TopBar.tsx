@@ -1,6 +1,13 @@
 import { Mail, MapPin, Phone } from "lucide-react";
-import { FacebookIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "./icons/SocialIcons";
-import { ADDRESS_SHORT, EMAIL_INFO, PHONE_DISPLAY, PHONE_WHATSAPP_URL } from "@/lib/contact";
+import { FacebookIcon, InstagramIcon } from "./icons/SocialIcons";
+import {
+  ADDRESS_SHORT,
+  EMAIL_INFO,
+  PHONE_DISPLAY,
+  PHONE_WHATSAPP_URL,
+  SOCIAL_FACEBOOK_URL,
+  SOCIAL_INSTAGRAM_URL,
+} from "@/lib/contact";
 
 export function TopBar() {
   return (
@@ -27,17 +34,23 @@ export function TopBar() {
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3 text-white/80">
-            <a href="#" aria-label="Facebook" className="hover:text-amber transition-colors">
+            <a
+              href={SOCIAL_FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="hover:text-amber transition-colors"
+            >
               <FacebookIcon width={14} height={14} />
             </a>
-            <a href="#" aria-label="Instagram" className="hover:text-amber transition-colors">
+            <a
+              href={SOCIAL_INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="hover:text-amber transition-colors"
+            >
               <InstagramIcon width={14} height={14} />
-            </a>
-            <a href="#" aria-label="LinkedIn" className="hover:text-amber transition-colors">
-              <LinkedinIcon width={14} height={14} />
-            </a>
-            <a href="#" aria-label="Twitter" className="hover:text-amber transition-colors">
-              <TwitterIcon width={14} height={14} />
             </a>
           </div>
           <span className="h-3 w-px bg-white/20" />

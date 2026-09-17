@@ -30,3 +30,10 @@ export const ADDRESS_FULL = "Bahria Town Karachi, Karachi, Pakistan";
 export const MAP_COORDS = { lat: 25.0239397, lng: 67.3145948 };
 export const MAP_EMBED_URL = `https://www.google.com/maps?q=${MAP_COORDS.lat},${MAP_COORDS.lng}&z=15&output=embed`;
 export const MAP_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${MAP_COORDS.lat},${MAP_COORDS.lng}`;
+
+// Social profiles. Instagram and Facebook are the only two active
+// accounts — every social link on the site should point at exactly
+// these two, nothing else.
+export const SOCIAL_INSTAGRAM_URL =
+  "https://www.instagram.com/gridzy.dev?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==";
+export const SOCIAL_FACEBOOK_URL = "https://www.facebook.com/thegridzy";

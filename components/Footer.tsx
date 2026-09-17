@@ -1,9 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { FacebookIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "./icons/SocialIcons";
+import { FacebookIcon, InstagramIcon } from "./icons/SocialIcons";
 import { services } from "@/lib/data";
-import { ADDRESS_SHORT, EMAIL_INFO, PHONE_DISPLAY, PHONE_WHATSAPP_URL } from "@/lib/contact";
+import {
+  ADDRESS_SHORT,
+  EMAIL_INFO,
+  PHONE_DISPLAY,
+  PHONE_WHATSAPP_URL,
+  SOCIAL_FACEBOOK_URL,
+  SOCIAL_INSTAGRAM_URL,
+} from "@/lib/contact";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -34,10 +41,16 @@ export function Footer() {
               elevate your brand, from web development to custom AI software.
             </p>
             <div className="mt-5 flex items-center gap-3">
-              {[FacebookIcon, InstagramIcon, LinkedinIcon, TwitterIcon].map((Icon, i) => (
+              {[
+                { Icon: FacebookIcon, label: "Facebook", href: SOCIAL_FACEBOOK_URL },
+                { Icon: InstagramIcon, label: "Instagram", href: SOCIAL_INSTAGRAM_URL },
+              ].map(({ Icon, label, href }) => (
                 <a
-                  key={i}
-                  href="#"
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-primary-teal text-off-white transition-colors hover:bg-amber hover:text-charcoal hover:border-amber"
                 >
                   <Icon width={15} height={15} />
