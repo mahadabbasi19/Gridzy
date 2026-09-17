@@ -6,12 +6,12 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { services } from "@/lib/data";
 
-const placeholders = [
-  "Search 'Website Development'...",
-  "Search 'Mobile App Design'...",
-  "Search 'AI Automations'...",
-  "Search 'Custom Software'...",
-];
+// Kept short on purpose — this input is ~90px wide at 10px type. The
+// old "Search '...'..." wrapper text always overflowed and truncated
+// to the same width on every string, which made the cursor look stuck
+// at the right edge no matter what. These fit without truncating, so
+// the cursor genuinely sits at a different spot after each one.
+const placeholders = ["Website Dev", "Mobile App", "AI Automation", "Custom Soft."];
 
 /**
  * Fully interactive "live" search bar rendered inside the Hero's mobile
