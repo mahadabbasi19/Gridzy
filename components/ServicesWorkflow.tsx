@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Cpu, Rocket, Target, Workflow as WorkflowIcon } from "lucide-react";
-import { useRef, useState } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { Check, Cpu, Pause, Play, Rocket, Target, Workflow as WorkflowIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const steps = [
@@ -28,103 +28,115 @@ const steps = [
   },
 ];
 
-function WorkflowStep({
-  step,
-  index,
-  hovered,
-  setHovered,
-}: {
-  step: (typeof steps)[number];
-  index: number;
-  hovered: number | null;
-  setHovered: (i: number | null) => void;
-}) {
-  const [inView, setInView] = useState(false);
-  const active = hovered === index || (hovered === null && inView);
-
-  return (
-    <motion.div
-      onViewportEnter={() => setInView(true)}
-      onViewportLeave={() => setInView(false)}
-      viewport={{ once: false, margin: "-45% 0px -45% 0px" }}
-      onMouseEnter={() => setHovered(index)}
-      onMouseLeave={() => setHovered(null)}
-      className="relative flex gap-5 pl-2 sm:gap-6"
-    >
-      <span className="relative flex h-11 w-11 shrink-0 items-center justify-center">
-        {active && (
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber opacity-40" />
-        )}
-        <span
-          className={cn(
-            "relative flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300",
-            active
-              ? "scale-105 border-amber bg-amber text-charcoal shadow-[0_0_18px_2px_rgba(245,166,35,0.5)]"
-              : "border-white/15 bg-white/[0.04] text-[#EAF4F3]/50"
-          )}
-        >
-          <step.icon size={18} />
-        </span>
-      </span>
-      <div className="pb-14">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-amber/60">
-          Step 0{index + 1}
-        </p>
-        <p
-          className={cn(
-            "mt-1 text-lg font-bold transition-colors duration-300",
-            active ? "text-white" : "text-[#EAF4F3]/60"
-          )}
-        >
-          {step.title}
-        </p>
-        <p
-          className={cn(
-            "mt-2 max-w-md text-sm leading-relaxed transition-colors duration-300",
-            active ? "text-[#EAF4F3]/70" : "text-[#EAF4F3]/35"
-          )}
-        >
-          {step.desc}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
+const STEP_DURATION_MS = 2400;
 
 export function ServicesWorkflow() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = useState<number | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"],
-  });
-  const beamHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const inView = useInView(containerRef, { amount: 0.3 });
+  const reducedMotion = useReducedMotion();
+  // A value of steps.length means the final step has also completed.
+  const [stage, setStage] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const complete = stage === steps.length;
+  const activeIndex = Math.min(stage, steps.length - 1);
+
+  useEffect(() => {
+    if (!inView || paused || reducedMotion) return;
+    const timer = window.setTimeout(
+      () => setStage((current) => current === steps.length ? 0 : current + 1),
+      complete ? 1800 : STEP_DURATION_MS
+    );
+    return () => window.clearTimeout(timer);
+  }, [inView, paused, complete, reducedMotion, stage]);
+
 
   return (
-    <section className="relative overflow-hidden bg-[#052825] py-24">
-      <div className="pointer-events-none absolute right-0 top-1/3 h-96 w-96 rounded-full bg-amber/[0.06] blur-[150px]" />
-
-      <div className="relative mx-auto max-w-4xl px-6">
+    <section className="overflow-hidden bg-off-white py-24" aria-labelledby="delivery-heading">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.15em] text-amber">
+          <p className="text-sm font-bold uppercase tracking-[0.15em] text-primary-teal">
             How We Deliver
           </p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
+          <h2 id="delivery-heading" className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">
             The 4-Step Delivery Workflow
           </h2>
         </div>
 
         <div ref={containerRef} className="relative mt-16">
-          <div className="absolute left-[1.375rem] top-0 h-full w-px bg-white/10" />
-          <motion.div
-            style={{ height: beamHeight }}
-            className="absolute left-[1.375rem] top-0 w-px bg-gradient-to-b from-amber to-emerald-400 shadow-[0_0_10px_2px_rgba(245,166,35,0.4)]"
-          />
+          <div aria-hidden="true" className="absolute left-[12.5%] right-[12.5%] top-6 h-0.5 rounded-full bg-border-teal sm:top-7">
+            <motion.div
+              initial={false}
+              animate={{ scaleX: activeIndex / (steps.length - 1) }}
+              transition={{ duration: reducedMotion ? 0 : 0.65, ease: "easeInOut" }}
+              className="h-full origin-left rounded-full bg-amber shadow-[0_0_12px_3px_rgba(245,166,35,0.5)]"
+            />
+          </div>
 
-          <div className="flex flex-col">
-            {steps.map((s, i) => (
-              <WorkflowStep key={s.title} step={s} index={i} hovered={hovered} setHovered={setHovered} />
-            ))}
+          <ol className="relative grid grid-cols-4 gap-2 sm:gap-6">
+            {steps.map((step, index) => {
+              const done = index < stage;
+              const active = index === activeIndex && !complete;
+              return (
+                <li key={step.title} className="min-w-0 text-center">
+                  <div className="relative mx-auto w-fit">
+                    {(active || done) && (
+                      <motion.span
+                        aria-hidden="true"
+                        initial={false}
+                        animate={{
+                          opacity: active && inView && !paused && !reducedMotion ? [0.4, 0.8, 0.4] : complete ? 0.65 : 0.3,
+                          scale: active && inView && !paused && !reducedMotion ? [1, 1.25, 1] : 1,
+                        }}
+                        transition={{ duration: reducedMotion ? 0 : 1.6, repeat: active && inView && !paused && !reducedMotion ? Infinity : 0 }}
+                        className={cn("pointer-events-none absolute -inset-3 rounded-full blur-lg", done ? "bg-emerald-500/20" : "bg-amber/50")}
+                      />
+                    )}
+                  <button
+                    type="button"
+                    onClick={() => { setStage(index); setPaused(true); }}
+                    aria-current={active ? "step" : undefined}
+                    aria-label={`Step ${index + 1}: ${step.title}${done ? ", complete" : active ? ", current" : ""}`}
+                    className={cn(
+                      "relative mx-auto flex h-12 w-12 items-center justify-center rounded-full border-2 ring-8 ring-off-white transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-primary-teal sm:h-14 sm:w-14",
+                      done ? "border-emerald-600 bg-emerald-600 text-white" : active ? "border-amber bg-amber text-charcoal shadow-[0_0_20px_4px_rgba(245,166,35,0.45)]" : "border-border-teal bg-white text-primary-teal/60"
+                    )}
+                  >
+                    {done ? <Check size={22} aria-hidden="true" /> : <step.icon size={22} aria-hidden="true" />}
+                  </button>
+                  </div>
+                  <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.12em] text-primary-teal sm:text-xs sm:tracking-[0.2em]">
+                    Step 0{index + 1}
+                  </p>
+                  <h3 className={cn("mt-2 break-words text-xs font-bold sm:text-base lg:text-lg", active || done ? "text-primary-teal" : "text-charcoal")}>
+                    {step.title}
+                  </h3>
+                  <p className="mt-3 hidden text-sm leading-relaxed text-charcoal/70 md:block">
+                    {step.desc}
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+
+          <div className="mt-8 rounded-2xl border border-border-teal bg-white p-6 md:hidden">
+            <p className="font-semibold text-primary-teal">{steps[activeIndex].title}</p>
+            <p className="mt-2 text-sm leading-relaxed text-charcoal/70">{steps[activeIndex].desc}</p>
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <p role="status" className="text-xs font-medium text-primary-teal">
+              {complete ? "All four steps complete" : `Step ${activeIndex + 1} of ${steps.length}`}
+            </p>
+            {!reducedMotion && (
+              <button
+                type="button"
+                onClick={() => setPaused((current) => !current)}
+                className="inline-flex items-center gap-2 rounded-full border border-border-teal bg-white px-4 py-2 text-xs font-semibold text-primary-teal transition-colors hover:bg-soft-teal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-teal"
+              >
+                {paused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+                {paused ? "Resume" : "Pause"}
+              </button>
+            )}
           </div>
         </div>
       </div>

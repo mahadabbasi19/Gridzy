@@ -1,126 +1,104 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, BrainCircuit, CloudCog, CodeXml, Zap } from "lucide-react";
-import Link from "next/link";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/Button";
 
-const chips = [
-  { icon: BrainCircuit, label: "AI Agent Engine", className: "left-[6%] top-[12%]" },
-  { icon: CloudCog, label: "Cloud Infrastructure", className: "right-[4%] top-[38%]" },
-  { icon: CodeXml, label: "Full-Stack Custom Code", className: "left-[16%] bottom-[10%]" },
-];
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" as const } },
-};
+// Thin L-shaped corner brackets — the same "Precision Draft" accent used
+// on the About and Portfolio heroes, reused here for visual parity
+// across all three pages.
+function CropMarks({ reducedMotion }: { reducedMotion: boolean }) {
+  const corners = [
+    "left-0 top-0 border-l border-t",
+    "right-0 top-0 border-r border-t",
+    "left-0 bottom-0 border-l border-b",
+    "right-0 bottom-0 border-r border-b",
+  ];
+  return (
+    <>
+      {corners.map((pos, i) => (
+        <motion.span
+          key={pos}
+          aria-hidden
+          initial={reducedMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
+          className={`pointer-events-none absolute h-6 w-6 border-amber/50 sm:h-8 sm:w-8 ${pos}`}
+        />
+      ))}
+    </>
+  );
+}
 
 export function ServicesHero() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = sectionRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    sectionRef.current?.style.setProperty("--mx", `${x}%`);
-    sectionRef.current?.style.setProperty("--my", `${y}%`);
-  };
+  const reducedMotion = useReducedMotion() ?? false;
 
   const handleExplore = () => {
-    document.getElementById("services-grid")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("services-grid")?.scrollIntoView({
+      behavior: reducedMotion ? "instant" : "smooth",
+      block: "start",
+    });
   };
 
   return (
-    <section
-      ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      className="relative overflow-hidden bg-gradient-to-b from-[#031d1b] to-[#052825] py-28 sm:py-36"
-      style={{ ["--mx" as string]: "50%", ["--my" as string]: "30%" }}
-    >
-      {/* fine grid + mouse-reactive glow */}
-      <div className="circuit-grid pointer-events-none absolute inset-0 opacity-[0.15]" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-80 transition-opacity duration-300"
-        style={{
-          background:
-            "radial-gradient(650px circle at var(--mx) var(--my), rgba(16,185,129,0.14), transparent 60%)",
-        }}
-      />
-      <div className="pointer-events-none absolute -left-24 top-0 h-96 w-96 rounded-full bg-emerald-500/10 blur-[140px]" />
-      <div className="pointer-events-none absolute -right-16 bottom-0 h-96 w-96 rounded-full bg-amber/10 blur-[140px]" />
+    <section className="relative overflow-hidden bg-deep-teal py-28 sm:py-36">
+      <div className="hero-grain pointer-events-none absolute inset-0" />
 
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative mx-auto flex max-w-4xl flex-col items-center px-6 text-center"
-      >
-        {/* badge with a soft pulsing glow border */}
-        <motion.div
-          variants={item}
-          className="hero-badge-pulse inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-white/[0.04] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-amber backdrop-blur-md"
-        >
-          <Zap size={13} className="shrink-0" />
-          Next-Gen Engine <span className="text-white/30">•</span> Our Capabilities
-        </motion.div>
+      <div className="relative mx-auto max-w-7xl px-6">
+        {/* Content block, framed by crop marks — same structure as the
+            About and Portfolio heroes for visual parity across the
+            three pages. */}
+        <div className="relative px-4 py-10 sm:px-8 sm:py-14">
+          <CropMarks reducedMotion={reducedMotion} />
 
-        <motion.h1
-          variants={item}
-          className="mt-6 text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
-        >
-          End-to-End{" "}
-          <span className="bg-gradient-to-r from-emerald-300 via-teal-200 to-amber bg-clip-text text-transparent">
-            Technology &amp; Creative
-          </span>{" "}
-          Capabilities
-        </motion.h1>
+          <motion.div
+            initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-amber/70"
+          >
+            <span className="h-px w-8 bg-amber/40" />
+            fig.03 — our capabilities
+          </motion.div>
 
-        <motion.p
-          variants={item}
-          className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#EAF4F3]/70 sm:text-lg"
-        >
-          Seven disciplines, one accountable team. Explore how Gridzy combines
-          engineering, design, and strategy to move your business forward.
-        </motion.p>
+          <motion.h1
+            initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="mt-7 max-w-5xl break-words font-sans tracking-tight"
+          >
+            <span className="block text-[clamp(2rem,5.2vw,4rem)] font-normal leading-[1.05] text-[#EAF4F3]/80">
+              End-to-End Technology &amp;
+            </span>
+            <span className="block text-[clamp(2.75rem,7.5vw,6.5rem)] font-black leading-[0.98] text-amber">
+              Creative Capabilities
+            </span>
+          </motion.h1>
 
-        <motion.div variants={item} className="mt-9 flex flex-wrap items-center justify-center gap-4">
-          <Button size="lg" onClick={handleExplore}>
-            Explore Services <ArrowRight size={18} className="rotate-90" />
-          </Button>
-          <Link href="/contact">
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-white backdrop-blur-md transition-colors duration-300 hover:border-amber/40 hover:text-amber"
-            >
-              Schedule Tech Consultation
-            </button>
-          </Link>
-        </motion.div>
-
-        {/* floating glass capability chips — decorative, ambient motion */}
-        <div className="pointer-events-none relative mt-16 hidden h-40 w-full max-w-3xl sm:block">
-          {chips.map((c, i) => (
-            <motion.div
-              key={c.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 + i * 0.15 }}
-              className={`hero-chip-float-${i % 3} absolute flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-xs font-semibold text-[#EAF4F3]/80 shadow-xl shadow-black/30 backdrop-blur-md ${c.className}`}
-            >
-              <c.icon size={14} className="shrink-0 text-emerald-300" />
-              {c.label}
-            </motion.div>
-          ))}
+          <motion.div
+            initial={reducedMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-10 flex items-start gap-4 pb-2 sm:mt-12 sm:gap-5 lg:ml-[32%]"
+          >
+            <span className="mt-1.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-amber/40 font-mono text-[10px] text-amber/70">
+              03
+            </span>
+            <div className="min-w-0 max-w-sm">
+              <p className="text-sm leading-relaxed text-[#EAF4F3]/65 sm:text-base">
+                Seven disciplines, one accountable team. Explore how Gridzy
+                combines engineering, design, and strategy to move your
+                business forward.
+              </p>
+              <div className="mt-6">
+                <Button size="lg" className="px-5 sm:px-8" magnetic={!reducedMotion} onClick={handleExplore}>
+                  Explore Services <ArrowRight size={18} aria-hidden="true" className="rotate-90" />
+                </Button>
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

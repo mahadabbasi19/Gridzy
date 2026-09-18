@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const groups = {
   Frontend: [
-    { name: "Next.js", src: "/tech/nextdotjs.svg", invert: true },
+    { name: "Next.js", src: "/tech/nextdotjs.svg" },
     { name: "React", src: "/tech/react.svg" },
     { name: "TypeScript", src: "/tech/typescript.svg" },
     { name: "Tailwind CSS", src: "/tech/tailwindcss.svg" },
@@ -29,14 +28,11 @@ const groups = {
   ],
 } as const;
 
-type GroupName = keyof typeof groups;
-const tabs = Object.keys(groups) as GroupName[];
-
 function MarqueeRow({
   items,
   reverse,
 }: {
-  items: readonly { name: string; src: string; invert?: boolean }[];
+  items: readonly { name: string; src: string }[];
   reverse?: boolean;
 }) {
   return (
@@ -54,16 +50,19 @@ function MarqueeRow({
             {items.map((t) => (
               <span
                 key={t.name}
-                className="flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5"
+                className="flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-xl border border-border-teal bg-off-white px-4 py-2.5"
               >
                 <Image
                   src={t.src}
                   alt={t.name}
                   width={20}
                   height={20}
-                  className={cn("h-5 w-5 shrink-0 object-contain", t.invert && "invert")}
+                  className={cn(
+                    "h-5 w-5 shrink-0 object-contain",
+                    (t.name === "OpenAI" || t.name === "Rust") && "brightness-0"
+                  )}
                 />
-                <span className="text-sm font-semibold text-[#EAF4F3]/80">{t.name}</span>
+                <span className="text-sm font-semibold text-charcoal/80">{t.name}</span>
               </span>
             ))}
           </div>
@@ -74,39 +73,22 @@ function MarqueeRow({
 }
 
 export function ServicesTechStack() {
-  const [active, setActive] = useState<GroupName>("Frontend");
-  const items = groups[active];
+  const items = Array.from(
+    new Map(Object.values(groups).flat().map((item) => [item.name, item])).values()
+  );
   const half = Math.ceil(items.length / 2) || 1;
 
   return (
-    <section className="relative overflow-hidden bg-[#031d1b] py-24">
-      <div className="circuit-grid pointer-events-none absolute inset-0 opacity-[0.1]" />
-      <div className="pointer-events-none absolute left-1/2 top-0 h-80 w-[36rem] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[150px]" />
+    <section className="relative overflow-hidden border-y border-border-teal bg-white py-24">
 
       <div className="relative mx-auto max-w-6xl px-6 text-center">
-        <p className="text-sm font-bold uppercase tracking-[0.15em] text-amber">
+        <p className="text-sm font-bold uppercase tracking-[0.15em] text-primary-teal">
           Tech Stack &amp; Architecture
         </p>
-        <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">
+        <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">
           Tools Built for the Job
         </h2>
 
-        <div className="mt-8 inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] p-1.5">
-          {tabs.map((t) => (
-            <button
-              key={t}
-              onClick={() => setActive(t)}
-              className={cn(
-                "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wide transition-colors sm:text-sm",
-                active === t
-                  ? "bg-amber text-charcoal"
-                  : "text-[#EAF4F3]/60 hover:text-white"
-              )}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
       </div>
 
       <div className="mt-12 flex flex-col gap-4">

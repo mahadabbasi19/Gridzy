@@ -1,5 +1,7 @@
 "use client";
 
+import { servicePortfolioHref } from "@/lib/service-navigation";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Search, SearchX, X } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -57,7 +59,7 @@ export function HeroSearchBar() {
   const showDropdown = focused && debounced.trim().length > 0;
 
   const go = (slug?: string) => {
-    router.push(slug ? `/services/${slug}` : "/services");
+    router.push(servicePortfolioHref(slug));
     setQuery("");
     setFocused(false);
   };
@@ -176,7 +178,7 @@ export function HeroSearchBar() {
                 <SearchX size={13} className="shrink-0 text-white/40" />
                 <span className="text-[10px] text-white/60">
                   No service found —{" "}
-                  <span className="font-semibold text-amber">View All Services →</span>
+                  <span className="font-semibold text-amber">View All Projects →</span>
                 </span>
               </button>
             )}

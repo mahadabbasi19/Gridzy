@@ -3,7 +3,7 @@ import { ServicesHero } from "@/components/ServicesHero";
 import { ServicesPageContent } from "@/components/ServicesPageContent";
 import { ServicesTechStack } from "@/components/ServicesTechStack";
 import { ServicesWorkflow } from "@/components/ServicesWorkflow";
-import { ServicesCTA } from "@/components/ServicesCTA";
+import { CTA } from "@/components/CTA";
 
 export const metadata: Metadata = {
   title: "Our Services | Gridzy — The Tech People",
@@ -18,7 +18,7 @@ export default function ServicesPage() {
       <ServicesPageContent />
       <ServicesTechStack />
       <ServicesWorkflow />
-      <ServicesCTA />
+      <CTA />
     </>
   );
 }

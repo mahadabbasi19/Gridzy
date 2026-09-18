@@ -1,7 +1,9 @@
 "use client";
 
 import { AnimatePresence } from "framer-motion";
-import { useMemo, useState } from "react";
+import { Suspense } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { recentWork } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { ProjectCard } from "./ProjectCard";
@@ -11,21 +13,26 @@ import { ProjectCard } from "./ProjectCard";
 // Software Development (HRM)" tag and Osteoneks' "Custom CRM" tag,
 // since both carry the "Custom Software" category underneath.
 const categories = Array.from(new Set(recentWork.flatMap((p) => p.categories)));
-const filters = ["All", ...categories];
+const filters = ["All", ...categories, "Artificial Intelligence", "Design"];
 
 // The full portfolio is the same real, live projects shown in the
 // homepage's "Recent Work" teaser — same data, same card, filterable
 // by the service each project actually used.
 export function Portfolio() {
-  const [active, setActive] = useState<(typeof filters)[number]>("All");
-
-  const filtered = useMemo(
-    () =>
-      active === "All"
-        ? recentWork
-        : recentWork.filter((p) => p.categories.includes(active)),
-    [active]
+  return (
+    <Suspense fallback={<section id="portfolio-grid" className="scroll-mt-24 bg-off-white py-24"><p role="status" className="text-center text-primary-teal">Loading projects…</p></section>}>
+      <FilteredPortfolio />
+    </Suspense>
   );
+}
+
+function FilteredPortfolio() {
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+  const active = category && filters.includes(category) ? category : "All";
+  const filtered = active === "All"
+    ? recentWork
+    : recentWork.filter((project) => project.categories.includes(active));
 
   return (
     <section id="portfolio-grid" className="scroll-mt-24 bg-off-white py-24">
@@ -44,9 +51,11 @@ export function Portfolio() {
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5">
           {filters.map((f) => (
-            <button
+            <Link
               key={f}
-              onClick={() => setActive(f)}
+              href={f === "All" ? "/portfolio/#portfolio-grid" : `/portfolio/?category=${encodeURIComponent(f)}#portfolio-grid`}
+              scroll={false}
+              aria-current={active === f ? "true" : undefined}
               className={cn(
                 "rounded-full border px-5 py-2 text-sm font-semibold transition-colors",
                 active === f
@@ -55,10 +64,11 @@ export function Portfolio() {
               )}
             >
               {f}
-            </button>
+            </Link>
           ))}
         </div>
 
+        <div id="portfolio-results" className="scroll-mt-24">
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
@@ -72,6 +82,7 @@ export function Portfolio() {
             No projects in this category yet.
           </p>
         )}
+        </div>
       </div>
     </section>
   );

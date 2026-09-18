@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { services, type Service } from "@/lib/data";
 import { Button } from "./ui/Button";
+import { ServiceTechStack } from "./ServiceTechStack";
 import { TiltCard } from "./TiltCard";
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
@@ -16,9 +17,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       transition={{ duration: 0.4, delay: (index % 3) * 0.08 }}
     >
       <TiltCard className="h-full">
-        <Link
-          href={`/services/${service.slug}`}
-          data-cursor="EXPLORE"
+        <article
           className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border-teal bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary-teal/40 hover:shadow-xl hover:shadow-charcoal/5"
         >
           <span className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-amber transition-transform duration-300 group-hover:scale-x-100" />
@@ -39,10 +38,8 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           <p className="mt-2 flex-1 text-sm leading-relaxed text-charcoal/65">
             {service.description}
           </p>
-          <span className="mt-4 flex items-center gap-1.5 text-sm font-semibold text-primary-teal opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            Learn More <ArrowRight size={14} />
-          </span>
-        </Link>
+          <ServiceTechStack items={service.techStack} />
+        </article>
       </TiltCard>
     </motion.div>
   );

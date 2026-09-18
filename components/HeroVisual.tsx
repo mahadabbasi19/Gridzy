@@ -7,9 +7,9 @@ import {
   Activity,
   Battery,
   Bell,
-  BrainCircuit,
+  Layers,
   Code2,
-  Palette,
+  Monitor,
   Signal,
   Smartphone,
   TrendingUp,
@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { servicePortfolioHref } from "@/lib/service-navigation";
 import { HeroSearchBar } from "./HeroSearchBar";
 
 const TILE_HIGHLIGHT_MS = 1100;
@@ -33,12 +34,12 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-// Quick-access tiles link straight to their matching service detail page.
+// Quick-access tiles open the portfolio with the matching project category.
 const appTiles = [
   { icon: Code2, label: "Web", slug: "website-development" },
-  { icon: BrainCircuit, label: "AI", slug: "ai-automations" },
   { icon: Smartphone, label: "Mobile", slug: "mobile-app-development" },
-  { icon: Palette, label: "Brand", slug: "graphics-brand-design" },
+  { icon: Monitor, label: "Desktop", slug: "desktop-application-development" },
+  { icon: Layers, label: "Custom Software", slug: "custom-software-development" },
 ];
 
 const projects = [
@@ -257,8 +258,8 @@ export function HeroVisual() {
                   return (
                     <Link
                       key={t.label}
-                      href={`/services/${t.slug}`}
-                      aria-label={`${t.label} services`}
+                      href={servicePortfolioHref(t.slug)}
+                      aria-label={`${t.label} projects`}
                       className={cn(
                         "flex cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border py-3 transition-all duration-300 active:scale-95 hover:border-amber/40 hover:bg-white/10",
                         isHighlighted
@@ -270,13 +271,13 @@ export function HeroVisual() {
                         size={16}
                         strokeWidth={2}
                         className={cn(
-                          "transition-transform duration-300",
-                          isHighlighted ? "scale-110 text-amber" : "text-primary-teal"
+                          "text-white transition-transform duration-300",
+                          isHighlighted && "scale-110"
                         )}
                       />
                       <span
                         className={cn(
-                          "text-[8px] font-medium transition-colors duration-300",
+                          "px-1 text-center text-[8px] font-medium leading-tight transition-colors duration-300",
                           isHighlighted ? "text-white/80" : "text-white/50"
                         )}
                       >

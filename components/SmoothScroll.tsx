@@ -33,11 +33,51 @@ export function SmoothScroll() {
     };
   }, []);
 
-  // Every route change should start the new page at the top,
-  // not wherever the previous page's scroll happened to land.
+  // Honor deep links after their content mounts, including Suspense content.
   useEffect(() => {
-    window.scrollTo(0, 0);
-    lenisRef.current?.scrollTo(0, { immediate: true });
+    const hash = window.location.hash.slice(1);
+    if (!hash) {
+      window.scrollTo(0, 0);
+      lenisRef.current?.scrollTo(0, { immediate: true });
+      return;
+    }
+
+    let targetId: string;
+    try {
+      targetId = decodeURIComponent(hash);
+    } catch {
+      return;
+    }
+
+    let frameId: number;
+    const scrollToTarget = () => {
+      const target = document.getElementById(targetId);
+      if (!target) return false;
+      frameId = requestAnimationFrame(() => {
+        const offset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+        const lenis = lenisRef.current;
+        if (lenis) {
+          lenis.resize();
+          lenis.scrollTo(target, { immediate: true, offset: -offset });
+        } else {
+          target.scrollIntoView({ behavior: "instant", block: "start" });
+        }
+      });
+      return true;
+    };
+
+    if (scrollToTarget()) return () => cancelAnimationFrame(frameId);
+
+    const observer = new MutationObserver(() => {
+      if (scrollToTarget()) observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    const timeout = window.setTimeout(() => observer.disconnect(), 10000);
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(timeout);
+      cancelAnimationFrame(frameId);
+    };
   }, [pathname]);
 
   return null;
