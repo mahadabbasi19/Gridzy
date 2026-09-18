@@ -82,7 +82,7 @@ export function ServicesHero() {
             className="mt-10 flex items-start gap-4 pb-2 sm:mt-12 sm:gap-5 lg:ml-[32%]"
           >
             <span className="mt-1.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-amber/40 font-mono text-[10px] text-amber/70">
-              03
+              02
             </span>
             <div className="min-w-0 max-w-sm">
               <p className="text-sm leading-relaxed text-[#EAF4F3]/65 sm:text-base">
