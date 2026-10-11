@@ -286,4 +286,11 @@ export const recentWork: RecentWorkItem[] = [
     tags: ["Website Development"],
     categories: ["Website Development"],
   },
+  {
+    title: "Texvon",
+    url: "https://www.texvon.com/",
+    image: "/portfolio/texvon.jpg",
+    tags: ["Website Development", "Custom Store", "CRM"],
+    categories: ["Website Development", "Custom Software"],
+  },
 ];
